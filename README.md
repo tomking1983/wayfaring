@@ -2,6 +2,7 @@
 
 Pexels API Key: 6KR7dMuHoheLrHkuMuBjt6aKsO5jCwMfhReAjQo6DaxyBHpWb7m0THy7
 
+rest countries link (no api key needed) - https://restcountries.com/v2/name/{country name}
 
 ## Airport API: 
 
