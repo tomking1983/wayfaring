@@ -15,8 +15,6 @@ document.getElementById("submit").addEventListener("click", function() {
     });
 
 
-
-
 fetch("https://restcountries.com/v2/name/" + country)
 .then(function(response) {
 	return response.json();
