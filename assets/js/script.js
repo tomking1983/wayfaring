@@ -26,9 +26,14 @@ fetch("https://restcountries.com/v2/name/" + country)
 
     // error handling
     if (data.status == 404) {
-        document.getElementById("name-common").innerHTML = "Please enter a valid Country Name";
-        document.getElementById("capital").innerHTML = "";
-    } 
+        // insert a message in red under the search box with id search 
+        document.getElementById("search-error").innerHTML += "<br><span style='color:red'>Country not found</span>";
+    } else {
+        // remove the error message
+        document.getElementById("search-error").innerHTML = "";
+    }
+
+
 
     // display data
 
@@ -47,6 +52,9 @@ document.getElementById("languages").innerHTML = "Language: " + data[0].language
 document.getElementById("region").innerHTML = "Continent: " + data[0].region;
 
 document.getElementById("currency").innerHTML = "Currency: " + data[0].currencies[0].symbol + " - " + data[0].currencies[0].name;
+
+// get currency code
+document.getElementById("currency-code").innerHTML = "Currency Code: " + data[0].currencies[0].code;
 
 document.getElementById("dial-code").innerHTML = "Country Dial Code: +" + data[0].callingCodes;
 
