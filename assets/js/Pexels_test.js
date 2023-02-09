@@ -1,7 +1,1 @@
-
-import { createClient } from 'pexels';
-
-const client = createClient('6KR7dMuHoheLrHkuMuBjt6aKsO5jCwMfhReAjQo6DaxyBHpWb7m0THy7');
-const query = 'Nature';
-
-client.photos.search({ query, per_page: 1 }).then(photos => {console.log(photos)});
+let PixaBaseBayURL = 'https://pixabay.com/api/?key=33509086-cc05bf73b92e15cea747beecb&q=yellow+flowers&image_type=photo'
