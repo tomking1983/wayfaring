@@ -1,0 +1,173 @@
+/* ============================= 
+0. CSS Variables of fav colours
+============================= */
+:root {
+   --vintage: #e0eae4;
+   --charcoal: #333333;
+   --brown: #985f34;
+   --greenDark: #274136;
+   --grey: #84791;
+   --ebony: #5b6359;
+   --green: #265f56;
+   --brownDark: #5d3621;
+}   
+
+/* ============================= 
+1. Structural Tags
+============================= */
+
+html {
+   font-family: Arial, Helvetica, sans-serif;
+   font-size: 62.7%;
+}
+
+body {
+   color: var(--charcoal);
+   background-color: var(--vintage);
+}
+
+header,
+main,
+footer {
+   font-size: 1 rem;
+   max-width: 90%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+   color: var(--brownDark);
+   text-align: center
+}
+
+h1 {
+   font-size: 2rem;
+}
+
+h2 {
+   font-size: 1.8rem;
+}
+
+h3 {
+   font-size: 1.6rem;
+}
+
+h4 {
+   font-size: 1.4rem;
+}
+
+h5 {
+   font-size: 1.2rem;
+}
+
+h6 {
+   font-size: 1rem;
+}
+
+p {
+   font-size: 1rem;
+}
+
+a {
+   color: var(--brownDark);
+   font-size: 1.5rem;
+   text-decoration: none;
+   transition: color 0.1s;
+ }
+ 
+ a:hover {
+   color: var(--green);
+   text-shadow: 2px 2px var(--charcoal);
+ }
+
+
+/* forms */
+
+input {
+   width: 50%;
+   font-size: 1.4rem !important;
+   color: var(--charcoal);
+   padding: 1rem;
+   margin: 1rem;
+   vertical-align: middle;
+   border: 0.3rem solid var(--brown);
+   box-sizing: border-box;
+   background-color: var(--vintage);
+   border-radius: 5px;
+   /* box-shadow: 5px 5px var(--colorCharcoal); */
+ }
+ 
+ input[type=text]:focus {
+   background-color: var(--ebony);
+   font-size: 1.4rem;
+ }
+ 
+ ::placeholder {
+   color: var(--charcoal);
+   font-size: 1.2rem;
+ }
+ 
+
+ /* buttons */
+
+/* .searchBar{
+  vertical-align: bottom;
+} */
+
+button {
+   display: inline;
+   padding: 0.5rem;
+   margin: 0.5rem;
+   vertical-align: middle;
+   font-size: 1.7rem;
+   cursor: pointer;
+   text-align: center;
+   text-decoration: none;
+   outline: auto;
+   color: var(--charcoal);
+   background-color: var(--green);
+   border: solid 0.2rem var(--vintage);
+   border-radius: 5px;
+   box-shadow: 0.3rem 0.3rem var(--charcoal);
+ }
+ 
+ button:hover, 
+ button:visited {
+   background-color: var(--greenDark);
+   box-shadow: 0.3rem 0.3rem  var(--charcoal);
+   color: var(--charcoal);
+ }
+ 
+ button:active {
+   background-color: var(--green);
+   box-shadow: 0.3rem 0.3rem  var(--charcoal);
+   transform: translateY(0.4rem);
+   color: var(--charcoal);
+ }
+ 
+
+/* basic structural */
+
+.hide {
+   display: none;
+ }
+ 
+ .visible {
+   display: inline;
+ }
+ 
+ .left {
+   text-align: left;
+ }
+
+ .right {
+   text-align: right;
+ }
+ 
+ .center {
+   margin: 0 auto;
+ }
+ 
