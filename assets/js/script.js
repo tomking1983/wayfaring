@@ -113,10 +113,7 @@ document.getElementById("submit").addEventListener("click", function () {
         )
           .then(function (response) {
             return response.json();
-          })
-
-        //   if transLanguage is en then dont display the translation and hide the section with teh id of translations
-        
+          })       
           .then(function (data) {
 
             // display the translations and add a <h2> heading for each
