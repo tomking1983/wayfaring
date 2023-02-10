@@ -35,7 +35,10 @@ if (localStorage.getItem("countries") != null) {
         // clear the countries div
         $("#countries").empty();
     }
-    );     
+    );
+    
+     
+
 }
 
 
@@ -53,7 +56,7 @@ document.getElementById("submit").addEventListener("click", function () {
     }
   });
 
-  //   save the search to local storage if valid
+//   save the search to local storage if valid
     if (country != "") {
         countries.push(country);
         localStorage.setItem("countries", JSON.stringify(countries));
@@ -68,7 +71,8 @@ document.getElementById("submit").addEventListener("click", function () {
     })
     .then(function (data) {
 
-      // error handling
+      
+           // error handling
       if (data.status == 404) {
         // clear the data in searchData if there is any
         $("#searchData").empty();
@@ -78,17 +82,21 @@ document.getElementById("submit").addEventListener("click", function () {
         $("#price").empty();
         $("#speakEnglish").empty();
         $("#police").empty();
+        
         // using sweet alert for pop up message - https://sweetalert.js.org/
         swal(
           "Oops, " + country + " " + "is not a valid country",
           "Please try again!",
           "error"
+          // when clicking on the button, reload the page
+        ).then(function () {
+          location.reload();
+        }
         );
-      }
+      };
 
       // display data
 
-    
       document.getElementById("name-common").innerHTML = data[0].name;
 
       document.getElementById("capital").innerHTML =
@@ -216,10 +224,9 @@ document.getElementById("submit").addEventListener("click", function () {
                     document.getElementById("police").innerHTML = "<h2>Where is the nearest police station?</h2>" + phrases[i];
                     }
                 }
-          });
-      };
+     
     });
+  };
 });
-
-
+});
 
