@@ -36,8 +36,6 @@ if (localStorage.getItem("countries") != null) {
         $("#countries").empty();
     }
     );
-    
-     
 
 }
 
@@ -127,7 +125,6 @@ document.getElementById("submit").addEventListener("click", function () {
         " - " +
         data[0].currencies[0].name;
 
-      // get currency code
       document.getElementById("currency-code").innerHTML =
         "Currency Code: " + data[0].currencies[0].code;
 
@@ -148,11 +145,11 @@ document.getElementById("submit").addEventListener("click", function () {
       // translation
       let transLanguage = data[0].languages[0].iso639_1;
       let phrases = [
-        "where is the nearest toilet",
-        "where is the nearest hospital",
-        "how much is this?",
-        "do you speak English?",
-        "where is the nearest police station?",
+        "Where is the nearest toilet?",
+        "Where is the nearest hospital?",
+        "How much is this?",
+        "Do you speak English?",
+        "Where is the nearest police station?",
 
       ];
 
