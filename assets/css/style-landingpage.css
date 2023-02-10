@@ -1,0 +1,28 @@
+.hero-bar{
+    background-image: url(../images/luca-bravo-O453M2Liufs-unsplash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+
+.headings{
+
+    padding: 1rem;
+    color: aliceblue;
+    text-align: center;
+    background-color: rgba(132,151,145, 0.5);
+}
+
+.display-4{
+    font-size: 5rem;
+    font-weight: 500;
+}
+
+.lead{
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.top-search{
+    margin-bottom: 1rem ;
+}
