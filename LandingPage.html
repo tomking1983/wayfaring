@@ -37,9 +37,9 @@
       </div>
    </header>
 
-   <main>
+   <main class="container-fluid">
 
-      <div class="container-fluid">
+
          <div class = "row">
             <div class = "col-lg-5 col-md-8 col-sm-12 border">
 
@@ -129,19 +129,82 @@
                </div>
             </div>
          </div>
+
+
+      <!-- REST COUNTRIES API -->
+      <section class="row">
+         <div class="col-12">
+            <h2>Country Information</h2>
+            <section id="searchData">
+               <img id="flag" src="" alt="" />
+               <h3 id="name-common"></h3>
+               <p id="capital"></p>
+               <p id="region"></p>
+               <p id="sub-region"></p>
+               <p id="population"></p>
+               <p id="languages"></p>
+               <p id="currency"></p>
+               <p id="currency-code"></p>
+               <p id="dial-code"></p>
+               <p id="translation"></p>
+               <div id="map" src=""></div>
+            </section>
+
+
+
+      <!-- Translation API -->
+            <section id="translations">
+               <h2 id="transHeading">Translations of useful phrases</h2>
+               <p id="toilet"></p>
+               <p id="hospital"></p>
+               <p id="price"></p>
+               <p id="speakEnglish"></p>
+               <p id="police"></p>
+            </section>
+         </div>
+      </section>
+
+
+      <!-- OpenTripMap API -->
+      <h2 class="visible">Popular Places to Visit in <span id="countryName"></span>
+      </h2>
+      <div id="info" class="alert alert-primary infoDiv visible">
+
       </div>
+      <section class="row">
+         </div>
+            <div class="col-12 col-lg-4">
+               <div id="list" class="list-group">
+               </div>
+               <nav class="text-center">
+                  <button id="next_button" type="button" class="btn btn-primary">
+                     Next
+                  </button>
+               </nav>
+
+            </div>
+            <div class="col-12 col-lg-8">
+               <div id="poi" class="alert">
+               </div>
+            </div>
+      </section>
+
    </main>
 
-   <footer>
-      <div class="container-fluid">
-         <div class="row">
-            <div class="col border">
-               <P>footer information here</P>
+   <footer class="container-fluid">
+      <div class="row center">
+         <div class="col border">
+            <div class="footerP">
+               made with <i class="fa fa-heart"></i> by
+            </div>
+            
+            <div class="footerCopyright">
+               <strong>Nathalie Storey, Tom King &amp; Pei Wang</strong>
+               <br><i class="fa fa-copyright" aria-hidden="true"></i> 2023 
             </div>
          </div>
       </div>
-
-   </footer>
+</footer>
 
 
 
