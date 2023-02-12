@@ -181,11 +181,11 @@ document.getElementById("submit").addEventListener("click", function () {
 
 
 
-        //-- =========================================================
-        //-- Pei Open Map API
-        //-- =========================================================
-
-          //You should get your API key at https://opentripmap.io
+  //-- =========================================================
+  //-- Pei Open Map API
+  //-- =========================================================
+        
+        //You should get your API key at https://opentripmap.io
   const apiKey = "5ae2e3f221c38a28845f05b673706e4aab3a9a3c52de530d3ad5a978";
 
   function apiGet(method, query) {
@@ -207,8 +207,7 @@ document.getElementById("submit").addEventListener("click", function () {
     });
   }
   
-// Init global variables for paging:
-
+  //-- Init global variables for paging:
 
   const pageLength = 8; // number of objects per page
 
@@ -218,9 +217,9 @@ document.getElementById("submit").addEventListener("click", function () {
   let offset = 0; // offset from first object in the list
   let count; // total objects count
   
-// This block uses the placename from input textbox and gets place location from API. If place was found it calls list loading function:
-let otmPlaceName;
-let otmCountryName;
+  //-- This function uses the capital city from the rest api to get place location from open trip map API.
+  let otmPlaceName;
+  let otmCountryName;
 
         apiGet("geoname", "name=" + capitalCity).then(function(data) {
           let message = "Name not found";
@@ -238,20 +237,21 @@ let otmCountryName;
         });
 
 
-//-- Pei:  This function gets total objects count within 1000 meters from specified location (lon, lat) and then loads first objects page:
-var otmRate = 3;
-var otmRadius = 2000;
+  //-- Pei:  This function gets total objects count within 1000 meters from specified location (lon, lat) and then loads first objects page:
+  var otmRate = 3;
+  var otmRadius = 3000;
+  var otmRadiusText = otmRadius / 1000;
 
-function firstLoad() {
-  apiGet(
-    "radius",
-    `radius=${otmRadius}&limit=${pageLength}&offset=${offset}&lon=${lon}&lat=${lat}&rate=${otmRate}&format=count`
+  function firstLoad() {
+    apiGet(
+      "radius",
+      `radius=${otmRadius}&limit=${pageLength}&offset=${offset}&lon=${lon}&lat=${lat}&rate=${otmRate}&format=count`
   ).then(function(data) {
     count = data.count;
     offset = 0;
     document.getElementById(
       "info"
-    ).innerHTML += `<p>There are ${count} places to visit within a 1km radius in ` + otmPlaceName+ `, ` + otmCountryName+ `</p>`;
+    ).innerHTML += `<p>There are ${count} places to visit within a ` + otmRadiusText + `km radius in ` + otmPlaceName+ `, ` + otmCountryName+ `</p>`;
     loadList();
   });
   }
@@ -287,7 +287,7 @@ function createListItem(item) {
   let a = document.createElement("a");
   a.className = "list-group-item list-group-item-action";
   a.setAttribute("data-id", item.xid);
-  a.innerHTML = `<h5 class="list-group-item-heading">${item.name}</h5>
+  a.innerHTML = `<p class="list-group-item-heading">${item.name}</p>
             <p class="list-group-item-text">${getCategoryName(item.kinds)}</p>`;
   
   a.addEventListener("click", function() {
@@ -306,12 +306,13 @@ function createListItem(item) {
     function show1stPOI (data1st) {
       console.log("show data1st:", data1st)
       let poi = document.getElementById("poi");
+      poi.classList.add("poiP");
       poi.innerHTML = "";
       if (data1st.preview) {
-        poi.innerHTML += `<img class="imgOpenMap" src="${data1st.preview.source}">`;
-        poi.innerHTML += `<p class="poiP">` + data1st.wikipedia_extracts  + `</p>`
+        poi.innerHTML += `<img id="poiImg" class="imgOpenMap" src="${data1st.preview.source}">`;
+        poi.innerHTML += data1st.wikipedia_extracts
         ? data1st.wikipedia_extracts.html 
-        : `<p class="poiP">` + data1st.info + `</p>`
+        : data1st.info
         ? data1st.info.descr
         : "No description";
       }
@@ -320,6 +321,7 @@ function createListItem(item) {
   //-- Pei:  This function shows preview and description at the right pane:
   function onShowPOI(data) {
   let poi = document.getElementById("poi");
+  poi.classList.add("poiP");
   poi.innerHTML = "";
   if (data.preview) {
     poi.innerHTML += `<img class="imgOpenMap" src="${data.preview.source}">`;

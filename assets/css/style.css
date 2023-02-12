@@ -39,7 +39,7 @@ h3,
 h4,
 h5,
 h6 {
-   color: var(--brownDark);
+   color: var(--charcoal);
    text-align: center
 }
 
@@ -85,10 +85,6 @@ a {
    cursor: pointer;
 }
 
-/* a:hover {
-   color: var(--green);
-   text-shadow: 2px 2px var(--charcoal);
-} */
 
 .imgOpenMap {
    margin: auto;
@@ -148,7 +144,7 @@ button:active {
 }
 
 .visible {
-   display: inline;
+   display: block;
 }
 
 .left {
@@ -196,10 +192,68 @@ button:active {
    text-align: center !important;
 }
 
-.poiP {
-   margin: 50px auto !important;
+.poiP p {
+   margin: 20px auto !important;
    padding: 20px !important;
-   font-size: 5rem;
+   font-size: 1.8rem;
+   line-height: 3rem;
+}
+
+a:link .list-group-item,
+a:visited .list-group-heading {
+   color: var(--charcoal) !important;
+   font-size: 1.7rem;
+   text-decoration: none;
+   transition: color 0.1s;
+   cursor: pointer;
+}
+
+a:hover {
+   color: var(--vintage) !important;
+   font-size: 1.9rem;
+   background-color: var(--brown) !important;
+   text-shadow: 2px 2px var(--colorCharcoal);
+}
+
+a:active {
+   color: var(--vintage) !important;
+   font-size: 1.9rem;
+   background-color: var(--brown) !important;
+}
+
+.list-group-item-heading {
+   font-size: 2rem;
+   text-align: center;
+   font-weight: bold;
+}
+
+
+
+.list-group-item-heading:hover,
+.list-group-item-heading:active {
+   color: var(--vintage) !important;
+   background-color: var(--brown) !important;
+}
+
+
+.active
+{
+   color: var(--vintage) !important;
+   background-color: var(--brown) !important;
+}
+
+.list-group-item-text {
+   font-size: 1.4rem;
+   text-align: center;
+}
+
+.active,
+p .list-group-item-text:hover,
+p .list-group-item-text:focus,
+p .list-group-item-text:active
+{
+   color: var(--vintage) !important;
+   background-color: var(--brown) !important;
 }
 
 #next_button {
