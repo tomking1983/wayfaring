@@ -39,6 +39,10 @@ if (localStorage.getItem("countries") != null) {
 
 }
 
+//-- var for opentripmap
+var capitalCity;
+var countryName;
+var currencyCode;
 
 //listener for the submit button
 document.getElementById("submit").addEventListener("click", function () {
@@ -107,6 +111,11 @@ document.getElementById("submit").addEventListener("click", function () {
         data[0].capital +
         " on Wikipedia</a>";
 
+        //--PEI put capital city into a var
+        capitalCity = data[0].capital;
+        countryName = data[0].name;
+        
+
       document.getElementById("population").innerHTML =
         "Population: " +
         data[0].population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -127,6 +136,9 @@ document.getElementById("submit").addEventListener("click", function () {
 
       document.getElementById("currency-code").innerHTML =
         "Currency Code: " + data[0].currencies[0].code;
+
+      //--PEI put currency co into a var
+      currencyCode = data[0].currencies[0].code;  
 
       document.getElementById("dial-code").innerHTML =
         "Country Dial Code: +" + data[0].callingCodes;
@@ -221,9 +233,174 @@ document.getElementById("submit").addEventListener("click", function () {
                     document.getElementById("police").innerHTML = "<h2>Where is the nearest police station?</h2>" + phrases[i];
                     }
                 }
-     
     });
+    // end of translation
   };
+
+
+  //-- =========================================================
+  //-- Pei Open Map API
+  //-- =========================================================
+       
+        const apiKey = "5ae2e3f221c38a28845f05b673706e4aab3a9a3c52de530d3ad5a978";
+
+        function apiGet(method, query) {
+          return new Promise(function(resolve, reject) {
+            var otmAPI =
+              "https://api.opentripmap.com/0.1/en/places/" +
+              method +
+              "?apikey=" +
+              apiKey;
+            if (query !== undefined) {
+              otmAPI += "&" + query;
+            }
+            fetch(otmAPI)
+              .then(response => response.json())
+              .then(data => resolve(data))
+              .catch(function(err) {
+                console.log("Fetch Error :-S", err);
+              });
+          });
+        }
+        
+        //-- Init global variables for paging:
+      
+        const pageLength = 8; // number of objects per page
+      
+        let lon; // place longitude
+        let lat; // place latitude
+      
+        let offset = 0; // offset from first object in the list
+        let count; // total objects count
+        
+        //-- This function uses the capital city from the rest api to get place location from open trip map API.
+        let otmPlaceName;
+        let otmCountryName;
+      
+              apiGet("geoname", "name=" + capitalCity).then(function(data) {
+                let message = "Name not found";
+                if (data.status == "OK") {
+                  // message = data.name + ", " + getCountryName(data.country);
+                  otmPlaceName = data.name;
+                  otmCountryName =  getCountryName(data.country);
+                  message = ``;
+                  lon = data.lon;
+                  lat = data.lat;
+                  firstLoad();
+                  document.getElementById("countryName").innerText = otmCountryName;
+                }
+                document.getElementById("info").innerHTML = `${message}`;
+              });
+      
+      
+        //-- Pei:  This function gets total objects count within 1000 meters from specified location (lon, lat) and then loads first objects page:
+        var otmRate = 3;
+        var otmRadius = 3000;
+        var otmRadiusText = otmRadius / 1000;
+      
+        function firstLoad() {
+          apiGet(
+            "radius",
+            `radius=${otmRadius}&limit=${pageLength}&offset=${offset}&lon=${lon}&lat=${lat}&rate=${otmRate}&format=count`
+        ).then(function(data) {
+          count = data.count;
+          offset = 0;
+          document.getElementById(
+            "info"
+          ).innerHTML += `<p>There are ${count} places to visit within a ` + otmRadiusText + `km radius in ` + otmPlaceName+ `, ` + otmCountryName+ `</p>`;
+          loadList();
+        });
+        }
+      
+      
+        //--Pei: This function load POI's list page to the left pane. It uses 1000 meters radius for objects search:
+      
+        function loadList() {
+          apiGet(
+            "radius",
+            `radius=1000&limit=${pageLength}&offset=${offset}&lon=${lon}&lat=${lat}&rate=2&format=json`
+          ).then(function(data) {
+            let list = document.getElementById("list");
+            list.innerHTML = "";
+            data.forEach(item => list.appendChild(createListItem(item)));
+            let nextBtn = document.getElementById("next_button");
+            if (count < offset + pageLength) {
+              nextBtn.style.visibility = "hidden";
+            } else {
+              nextBtn.style.visibility = "visible";
+              nextBtn.innerText = `Next (${offset + pageLength} of ${count})`;
+            }
+      //-- PW
+      let xid = data[0].xid;
+      apiGet("xid/" + xid).then(data=> show1stPOI(data));
+      
+          });
+        }
+      
+      
+        //--Pei  This function create a list item at the left pane:
+      function createListItem(item) {
+        let a = document.createElement("a");
+        a.className = "list-group-item list-group-item-action";
+        a.setAttribute("data-id", item.xid);
+        a.innerHTML = `<p class="list-group-item-heading">${item.name}</p>
+                  <p class="list-group-item-text">${getCategoryName(item.kinds)}</p>`;
+        
+        a.addEventListener("click", function() {
+          document.querySelectorAll("#list a").forEach(function(item) {
+            item.classList.remove("active");
+          });
+          this.classList.add("active");
+          let xid = this.getAttribute("data-id");
+          apiGet("xid/" + xid).then(data => onShowPOI(data));
+        });
+        return a;
+        }
+      
+          //--Pei's own function to render first POI
+      
+          function show1stPOI (data1st) {
+            console.log("show data1st:", data1st)
+            let poi = document.getElementById("poi");
+            poi.classList.add("poiP");
+            poi.innerHTML = "";
+            if (data1st.preview) {
+              poi.innerHTML += `<img id="poiImg" class="imgOpenMap" src="${data1st.preview.source}">`;
+              poi.innerHTML += data1st.wikipedia_extracts
+              ? data1st.wikipedia_extracts.html 
+              : data1st.info
+              ? data1st.info.descr
+              : "No description";
+            }
+          }
+      
+        //-- Pei:  This function shows preview and description at the right pane:
+        function onShowPOI(data) {
+        let poi = document.getElementById("poi");
+        poi.classList.add("poiP");
+        poi.innerHTML = "";
+        if (data.preview) {
+          poi.innerHTML += `<img class="imgOpenMap" src="${data.preview.source}">`;
+        }
+        poi.innerHTML += data.wikipedia_extracts
+          ? data.wikipedia_extracts.html
+          : data.info
+          ? data.info.descr
+          : "No description";
+        
+        // poi.innerHTML += `<p class="poiP"><a target="_blank" href="${data.otm}">Show more at OpenTripMap</a></p>`;
+        }
+      
+        //--Pei:  This block process Next page button
+        document
+        .getElementById("next_button")
+        .addEventListener("click", function() {
+          offset += pageLength;
+          loadList();
+        });
+      
+        //-- end of openTripMap API
+  // end of rest countries
 });
 });
 

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8"/>
+   <title>Wayfaring</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+   
+   <!-- bootstrap link -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+   <!-- awesome font stylesheets -->
+   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+   <!-- local style sheet link -->
+   <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+   <link rel="stylesheet" href="assets/css/style-landingpage.css"/>
+
+   <!-- open map API -->
+   <script
+      type="text/javascript"
+      src="https://opentripmap.io/js/directory.en.js">
+   </script>
+</head>
+
+<body>
+
+   <!-- jumbotron to hold hero bar and first search input -->
+   <header class="container-fluid">
+      <div class="row">
+         <div class="col">
+            <div class="jumbotron hero-bar">
+               <div class="container headings">
+                  <h1 class="display-4">Wayfaring</h1>
+
+                  <p class="lead center">Let us guide you on an adventure</p>
+   
+                  <!-- add a search box and a submit button linked to search box -->
+                  <div class="center">
+                  <input type="text" class="top-search" id="search" placeholder="Country to explore ..." />
+                  <button id="submit">Let's Go!</button>
+                  </div>
+   
+                  <p>
+                     A quick and easy way to search for basic information to aid you on your travels. Either use the search box above to return all of the the information we can on your choosen country.Or scroll down to select your variables to only display certain information.
+                  </p>
+
+               </div>
+
+            </div>
+         </div>
+      </div>
+   </header>
+
+   <main class="container-fluid">
+      <!-- Searches -->
+      <section class="row">
+         <div class = "col-lg-5 col-md-8 col-sm-12 border">
+
+            <form>
+
+               <!-- country search -->
+               <!-- <div class="form-group row">
+                  <label for="search2" class="col-sm-2 col-form-label"></label>
+                  <div class="col-sm-10">
+                  <input type="text" class="form-control" id="search2" placeholder="Countries to explore ...">
+                  <button id="submit2">Submit</button>
+                  </div>
+               </div> -->
+               
+               <p>Use the variables below to tailor the information you recieve. dont worrry if you dont select anything we will stil display you some basic information on you choosen country</p>
+
+               <!-- radio checkbox variables -->
+               <fieldset class="form-group row">
+
+                  <legend class="col-form-label col-sm-7 float-sm-left pt-0">Currency conversion</legend>
+
+                  <div class="col-sm-5">
+
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios"  value="option2">
+                     </div>
+
+                  </div>
+
+                  <legend class="col-form-label col-sm-7 float-sm-left pt-0">Helpful phrases</legend>
+
+                  <div class="col-sm-5">
+
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios"  value="option2">
+                     </div>
+                  </div>
+
+                  <legend class="col-form-label col-sm-7 float-sm-left pt-0">Pictures</legend>
+
+                  <div class="col-sm-5">
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios"  value="option1" checked>
+                     </div>
+                  </div>
+
+                  <legend class="col-form-label col-sm-7 float-sm-left pt-0">Places of interest in the country</legend>
+
+                  <div class="col-sm-5">
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios"  value="option1" checked>
+                     </div>
+                  </div>
+
+                  <legend class="col-form-label col-sm-7 float-sm-left pt-0">Places of interest in the Capital City</legend>
+
+                  <div class="col-sm-5">
+                     <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios"  value="option1" checked>
+                     </div>
+                  </div>
+               </fieldset>
+            </form>
+         </div>
+         <div class="col-lg-3 col-md-5 col-sm-12 border">
+            <p>Previous Searches</p>
+            <hr>
+            <div class="search-container"></div>
+         </div>
+         <div class="col-lg-4 col-md-12 col-sm-12 border" id="test-pixabay">
+            <p>our favorite places</p>
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-8 border">1</div>
+                  <div class="col-4 border">2</div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Rest Countries API -->
+      <section class="row">
+         <div class="col-12">
+            <h2>Country Information</h2>
+            <section id="searchData">
+               <img id="flag" src="" alt="" />
+               <h3 id="name-common"></h3>
+               <p id="capital"></p>
+               <p id="region"></p>
+               <p id="sub-region"></p>
+               <p id="population"></p>
+               <p id="languages"></p>
+               <p id="currency"></p>
+               <p id="currency-code"></p>
+               <p id="dial-code"></p>
+               <p id="translation"></p>
+               <div id="map" src=""></div>
+            </section>
+
+            <section id="translations">
+               <h2 id="transHeading">Translations of useful phrases</h2>
+      
+               <p id="toilet"></p>
+               <p id="hospital"></p>
+               <p id="price"></p>
+               <p id="speakEnglish"></p>
+               <p id="police"></p>
+            </section>
+         </div>
+      </section>
+
+      <!-- open map API  -->
+         <h2 class="visible">Popular Places to Visit in <span id="countryName"></span>
+         </h2>
+         <div id="info" class="alert alert-primary infoDiv visible">
+         </div>
+      <section class="row">
+
+            <div class="col-12 col-lg-4">
+               <div id="list" class="list-group">
+               </div>
+               <nav class="text-center">
+                  <button id="next_button" type="button" class="btn btn-primary">
+                     Next
+                  </button>
+               </nav>
+
+            </div>
+            <div class="col-12 col-lg-8">
+               <div id="poi" class="alert">
+               </div>
+            </div>
+      </section>
+   </main>
+
+   <footer class="container-fluid">
+         <div class="row center">
+            <div class="col border">
+               <div class="footerP">
+                  made with <i class="fa fa-heart"></i> by
+               </div>
+               
+               <div class="footerCopyright">
+                  <strong>Nathalie Storey, Tom King &amp; Pei Wang</strong>
+                  <br><i class="fa fa-copyright" aria-hidden="true"></i> 2023 
+               </div>
+            </div>
+         </div>
+   </footer>
+
+
+
+<!-- jquery script -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   
+<!-- own scripts -->
+
+<script type="text/javascript" src="assets/js/script2.js"></script>
+<script type="text/javascript" src="./assets/js/pixabay.js"></script>
+
+
+</body>
+
+</html>
