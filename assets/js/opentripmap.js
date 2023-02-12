@@ -119,7 +119,7 @@
     let poi = document.getElementById("poi");
     poi.innerHTML = "";
     if (data.preview) {
-      poi.innerHTML += `<img src="${data.preview.source}">`;
+      poi.innerHTML += `<img class="imgOpenMap" src="${data.preview.source}">`;
     }
     poi.innerHTML += data.wikipedia_extracts
       ? data.wikipedia_extracts.html

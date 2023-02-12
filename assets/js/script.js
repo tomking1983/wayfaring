@@ -131,47 +131,47 @@ document.getElementById("submit").addEventListener("click", function () {
           })       
           .then(function (data) {
 
-            // display the translations and add a <h2> heading for each
+            // display the translations and add a <h3> heading for each
             if (i == 0) {
-                document.getElementById("toilet").innerHTML = "<h2>Where is the nearest toilet?</h2>" + data.responseData.translatedText;
+                document.getElementById("toilet").innerHTML = "<h3>Where is the nearest toilet?</h3>" + data.responseData.translatedText;
                 }
 
             if (i == 1) {
-                document.getElementById("hospital").innerHTML = "<h2>Where is the nearest hospital?</h2>" + data.responseData.translatedText;
+                document.getElementById("hospital").innerHTML = "<h3>Where is the nearest hospital?</h3>" + data.responseData.translatedText;
                 }
 
             if (i == 2) {
-                document.getElementById("price").innerHTML = "<h2>How much is this?</h2>" + data.responseData.translatedText;
+                document.getElementById("price").innerHTML = "<h3>How much is this?</h3>" + data.responseData.translatedText;
                 }
 
             if (i == 3) {
-                document.getElementById("speakEnglish").innerHTML = "<h2>Do you speak English?</h2>" + data.responseData.translatedText;
+                document.getElementById("speakEnglish").innerHTML = "<h3>Do you speak English?</h3>" + data.responseData.translatedText;
                 }
 
             if (i == 4) {
-                document.getElementById("police").innerHTML = "<h2>Where is the nearest police station?</h2>" + data.responseData.translatedText;
+                document.getElementById("police").innerHTML = "<h3>Where is the nearest police station?</h3>" + data.responseData.translatedText;
                 }
 
                  // if trans language is en then overide the error from the api and display the english version of the phrase
             if (transLanguage == "en") {
                 if (i == 0) {
-                    document.getElementById("toilet").innerHTML = "<h2>Where is the nearest toilet?</h2>" + phrases[i];
+                    document.getElementById("toilet").innerHTML = "<h3>Where is the nearest toilet?</h3>" + phrases[i];
                     }
 
                 if (i == 1) {
-                    document.getElementById("hospital").innerHTML = "<h2>Where is the nearest hospital?</h2>" + phrases[i];
+                    document.getElementById("hospital").innerHTML = "<h3>Where is the nearest hospital?</h3>" + phrases[i];
                     }
 
                 if (i == 2) {
-                    document.getElementById("price").innerHTML = "<h2>How much is this?</h2>" + phrases[i];
+                    document.getElementById("price").innerHTML = "<h3>How much is this?</h3>" + phrases[i];
                     }
 
                 if (i == 3) {
-                    document.getElementById("speakEnglish").innerHTML = "<h2>Do you speak English?</h2>" + phrases[i];
+                    document.getElementById("speakEnglish").innerHTML = "<h3>Do you speak English?</h3>" + phrases[i];
                     }
 
                 if (i == 4) {
-                    document.getElementById("police").innerHTML = "<h2>Where is the nearest police station?</h2>" + phrases[i];
+                    document.getElementById("police").innerHTML = "<h3>Where is the nearest police station?</h3>" + phrases[i];
                     }
                 }
             
@@ -210,7 +210,7 @@ document.getElementById("submit").addEventListener("click", function () {
 // Init global variables for paging:
 
 
-  const pageLength = 5; // number of objects per page
+  const pageLength = 8; // number of objects per page
 
   let lon; // place longitude
   let lat; // place latitude
@@ -219,56 +219,68 @@ document.getElementById("submit").addEventListener("click", function () {
   let count; // total objects count
   
 // This block uses the placename from input textbox and gets place location from API. If place was found it calls list loading function:
-
+let otmPlaceName;
+let otmCountryName;
 
         apiGet("geoname", "name=" + capitalCity).then(function(data) {
           let message = "Name not found";
           if (data.status == "OK") {
-            message = data.name + ", " + getCountryName(data.country);
+            // message = data.name + ", " + getCountryName(data.country);
+            otmPlaceName = data.name;
+            otmCountryName =  getCountryName(data.country);
+            message = ``;
             lon = data.lon;
             lat = data.lat;
             firstLoad();
-            document.getElementById("countryName").innerText = countryName;
+            document.getElementById("countryName").innerText = otmCountryName;
           }
           document.getElementById("info").innerHTML = `${message}`;
         });
 
 
 //-- Pei:  This function gets total objects count within 1000 meters from specified location (lon, lat) and then loads first objects page:
+var otmRate = 3;
+var otmRadius = 2000;
 
 function firstLoad() {
   apiGet(
     "radius",
-    `radius=1000&limit=${pageLength}&offset=${offset}&lon=${lon}&lat=${lat}&rate=2&format=count`
+    `radius=${otmRadius}&limit=${pageLength}&offset=${offset}&lon=${lon}&lat=${lat}&rate=${otmRate}&format=count`
   ).then(function(data) {
     count = data.count;
     offset = 0;
     document.getElementById(
       "info"
-    ).innerHTML += `<p>There are ${count} places to visit in a 1km radius</p>`;
+    ).innerHTML += `<p>There are ${count} places to visit within a 1km radius in ` + otmPlaceName+ `, ` + otmCountryName+ `</p>`;
     loadList();
   });
   }
 
 
   //--Pei: This function load POI's list page to the left pane. It uses 1000 meters radius for objects search:
-function loadList() {
-  apiGet(
-    "radius",
-    `radius=1000&limit=${pageLength}&offset=${offset}&lon=${lon}&lat=${lat}&rate=2&format=json`
-  ).then(function(data) {
-    let list = document.getElementById("list");
-    list.innerHTML = "";
-    data.forEach(item => list.appendChild(createListItem(item)));
-    let nextBtn = document.getElementById("next_button");
-    if (count < offset + pageLength) {
-      nextBtn.style.visibility = "hidden";
-    } else {
-      nextBtn.style.visibility = "visible";
-      nextBtn.innerText = `Next (${offset + pageLength} of ${count})`;
-    }
-  });
+
+  function loadList() {
+    apiGet(
+      "radius",
+      `radius=1000&limit=${pageLength}&offset=${offset}&lon=${lon}&lat=${lat}&rate=2&format=json`
+    ).then(function(data) {
+      let list = document.getElementById("list");
+      list.innerHTML = "";
+      data.forEach(item => list.appendChild(createListItem(item)));
+      let nextBtn = document.getElementById("next_button");
+      if (count < offset + pageLength) {
+        nextBtn.style.visibility = "hidden";
+      } else {
+        nextBtn.style.visibility = "visible";
+        nextBtn.innerText = `Next (${offset + pageLength} of ${count})`;
+      }
+//-- PW
+let xid = data[0].xid;
+apiGet("xid/" + xid).then(data=> show1stPOI(data));
+
+    });
   }
+
 
   //--Pei  This function create a list item at the left pane:
 function createListItem(item) {
@@ -289,12 +301,28 @@ function createListItem(item) {
   return a;
   }
 
+    //--Pei's own function to render first POI
+
+    function show1stPOI (data1st) {
+      console.log("show data1st:", data1st)
+      let poi = document.getElementById("poi");
+      poi.innerHTML = "";
+      if (data1st.preview) {
+        poi.innerHTML += `<img class="imgOpenMap" src="${data1st.preview.source}">`;
+        poi.innerHTML += `<p class="poiP">` + data1st.wikipedia_extracts  + `</p>`
+        ? data1st.wikipedia_extracts.html 
+        : `<p class="poiP">` + data1st.info + `</p>`
+        ? data1st.info.descr
+        : "No description";
+      }
+    }
+
   //-- Pei:  This function shows preview and description at the right pane:
   function onShowPOI(data) {
   let poi = document.getElementById("poi");
   poi.innerHTML = "";
   if (data.preview) {
-    poi.innerHTML += `<img src="${data.preview.source}">`;
+    poi.innerHTML += `<img class="imgOpenMap" src="${data.preview.source}">`;
   }
   poi.innerHTML += data.wikipedia_extracts
     ? data.wikipedia_extracts.html
@@ -302,7 +330,7 @@ function createListItem(item) {
     ? data.info.descr
     : "No description";
   
-  poi.innerHTML += `<p><a target="_blank" href="${data.otm}">Show more at OpenTripMap</a></p>`;
+  // poi.innerHTML += `<p class="poiP"><a target="_blank" href="${data.otm}">Show more at OpenTripMap</a></p>`;
   }
 
   //--Pei:  This block process Next page button
