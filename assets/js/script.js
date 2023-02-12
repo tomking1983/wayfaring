@@ -1,3 +1,45 @@
+
+// display the countries the user has searched for
+// create an array for local storage to store the countries the user has searched for
+let countries = [];
+// check if there is anything in local storage
+if (localStorage.getItem("countries") != null) {
+    // if there is something in local storage, get it and parse it
+    countries = JSON.parse(localStorage.getItem("countries"));
+    // display the countries
+    displayCountries();
+}
+
+
+    // save the countries array to local storage
+    localStorage.setItem("countries", JSON.stringify(countries));
+    function displayCountries() {
+    // clear the data in the countries div
+    $("#countries").empty();
+    // loop through the countries array and display the countries
+    for (let i = 0; i < countries.length; i++) {
+        let country = countries[i];
+        let li = $("<li>").text(country);
+        $("#countries").append(li);
+    }
+
+    // add a clear button to clear the countries array and local storage
+    let clearBtn = $("<button>").text("Clear");
+    $("#countries").append(clearBtn);
+    // listener for the clear button
+    clearBtn.on("click", function () {
+        // clear the countries array
+        countries = [];
+        // clear local storage
+        localStorage.clear();
+        // clear the countries div
+        $("#countries").empty();
+    }
+    );
+
+}
+
+
 //listener for the submit button
 document.getElementById("submit").addEventListener("click", function () {
   country = document.getElementById("search").value;
@@ -12,23 +54,44 @@ document.getElementById("submit").addEventListener("click", function () {
     }
   });
 
+//   save the search to local storage if valid
+    if (country != "") {
+        countries.push(country);
+        localStorage.setItem("countries", JSON.stringify(countries));
+        displayCountries();
+    }
+
+
+
   fetch("https://restcountries.com/v2/name/" + country)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
 
-      // error handling
+      
+           // error handling
       if (data.status == 404) {
         // clear the data in searchData if there is any
         $("#searchData").empty();
+        // clear the translation data
+        $("#toilet").empty();
+        $("#hospital").empty();
+        $("#price").empty();
+        $("#speakEnglish").empty();
+        $("#police").empty();
+        
         // using sweet alert for pop up message - https://sweetalert.js.org/
         swal(
           "Oops, " + country + " " + "is not a valid country",
           "Please try again!",
           "error"
+          // when clicking on the button, reload the page
+        ).then(function () {
+          location.reload();
+        }
         );
-      }
+      };
 
       // display data
 
@@ -62,7 +125,6 @@ document.getElementById("submit").addEventListener("click", function () {
         " - " +
         data[0].currencies[0].name;
 
-      // get currency code
       document.getElementById("currency-code").innerHTML =
         "Currency Code: " + data[0].currencies[0].code;
 
@@ -83,11 +145,11 @@ document.getElementById("submit").addEventListener("click", function () {
       // translation
       let transLanguage = data[0].languages[0].iso639_1;
       let phrases = [
-        "where is the nearest toilet",
-        "where is the nearest hospital",
-        "how much is this?",
-        "do you speak English?",
-        "where is the nearest police station?",
+        "Where is the nearest toilet?",
+        "Where is the nearest hospital?",
+        "How much is this?",
+        "Do you speak English?",
+        "Where is the nearest police station?",
 
       ];
 
@@ -137,7 +199,7 @@ document.getElementById("submit").addEventListener("click", function () {
                 document.getElementById("police").innerHTML = "<h2>Where is the nearest police station?</h2>" + data.responseData.translatedText;
                 }
 
-                 // if trans language is en then overide the error from the api and display the english version of the phrase
+                 // if trans language is en then override the error from the api and display the english version of the phrase
             if (transLanguage == "en") {
                 if (i == 0) {
                     document.getElementById("toilet").innerHTML = "<h2>Where is the nearest toilet?</h2>" + phrases[i];
@@ -159,9 +221,9 @@ document.getElementById("submit").addEventListener("click", function () {
                     document.getElementById("police").innerHTML = "<h2>Where is the nearest police station?</h2>" + phrases[i];
                     }
                 }
-            
-            });
-        }
+     
     });
+  };
+});
 });
 
