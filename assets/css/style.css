@@ -6,7 +6,7 @@
    --charcoal: #333333;
    --brown: #985f34;
    --greenDark: #274136;
-   --grey: #84791;
+   --grey: #849791;
    --ebony: #5b6359;
    --green: #265f56;
    --brownDark: #5d3621;
@@ -76,47 +76,33 @@ a {
    font-size: 1.5rem;
    text-decoration: none;
    transition: color 0.1s;
- }
- 
- a:hover {
+   cursor: pointer;
+}
+
+/* a:hover {
    color: var(--green);
    text-shadow: 2px 2px var(--charcoal);
- }
+} */
+
+.imgOpenMap {
+   margin: auto;
+   padding: 10px;
+   display: block;
+   max-width: 250px;
+}
 
 
 /* forms */
-
-input {
+form {
    width: 50%;
-   font-size: 1.4rem !important;
-   color: var(--charcoal);
+   margin: 20px auto;
    padding: 1rem;
    margin: 1rem;
-   vertical-align: middle;
-   border: 0.3rem solid var(--brown);
-   box-sizing: border-box;
-   background-color: var(--vintage);
-   border-radius: 5px;
-   /* box-shadow: 5px 5px var(--colorCharcoal); */
- }
- 
- input[type=text]:focus {
-   background-color: var(--ebony);
-   font-size: 1.4rem;
- }
- 
- ::placeholder {
-   color: var(--charcoal);
-   font-size: 1.2rem;
- }
- 
+}
 
  /* buttons */
 
-/* .searchBar{
-  vertical-align: bottom;
-} */
-
+/* 
 button {
    display: inline;
    padding: 0.5rem;
@@ -132,42 +118,74 @@ button {
    border: solid 0.2rem var(--vintage);
    border-radius: 5px;
    box-shadow: 0.3rem 0.3rem var(--charcoal);
- }
- 
- button:hover, 
- button:visited {
+}
+
+button:hover, 
+button:visited {
    background-color: var(--greenDark);
    box-shadow: 0.3rem 0.3rem  var(--charcoal);
    color: var(--charcoal);
- }
- 
- button:active {
+}
+
+button:active {
    background-color: var(--green);
    box-shadow: 0.3rem 0.3rem  var(--charcoal);
    transform: translateY(0.4rem);
    color: var(--charcoal);
- }
- 
+}
+  */
 
 /* basic structural */
 
 .hide {
    display: none;
- }
- 
- .visible {
-   display: inline;
- }
- 
- .left {
-   text-align: left;
- }
+}
 
- .right {
+.visible {
+   display: inline;
+}
+
+.left {
+   text-align: left;
+}
+
+.right {
    text-align: right;
- }
- 
- .center {
+}
+
+.center {
    margin: 0 auto;
- }
- 
+   text-align: center;
+}
+
+
+/* For Footer  */
+
+.footerP {
+   font-style: italic;
+   padding-top: 10px;
+   padding-bottom: 10px;
+}
+
+.footerCopyright {
+   font-size: 1rem;
+   margin-top: 0px;
+   font-style: italic;
+}
+
+
+
+ /* For Open Map */
+
+@media (min-width: 600px){
+   img{
+      max-width: 450px;
+   }
+}
+
+
+
+#next_button {
+   margin-top: 5px;
+   visibility: hidden;
+}

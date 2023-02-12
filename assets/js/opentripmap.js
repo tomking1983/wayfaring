@@ -1,7 +1,7 @@
 //-- PW: Script for open map API
 //-- Whole-script strict mode syntax
 // "use strict";
-   
+
   //You should get your API key at https://opentripmap.io
   const apiKey = "5ae2e3f221c38a28845f05b673706e4aab3a9a3c52de530d3ad5a978";
 
@@ -39,7 +39,7 @@
 
 
   document
-    .getElementById("search_form")
+    .getElementById("submit")
     .addEventListener("submit", function(event) {
       let name = document.getElementById("textbox").value;
       apiGet("geoname", "name=" + name).then(function(data) {
