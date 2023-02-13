@@ -1,5 +1,8 @@
-// display the countries the user has searched for
-// create an array for local storage to store the countries the user has searched for
+  //-- =========================================================
+  //-- Local Storage
+  //-- =========================================================
+
+// Local Storage array
 let countries = [];
 // check if there is anything in local storage
 if (localStorage.getItem("countries") != null) {
@@ -13,17 +16,17 @@ if (localStorage.getItem("countries") != null) {
 localStorage.setItem("countries", JSON.stringify(countries));
 function displayCountries() {
    // clear the data in the countries div
-   $("#countries").empty();
+   $(".search-container").empty();
    // loop through the countries array and display the countries
    for (let i = 0; i < countries.length; i++) {
       let country = countries[i];
       let li = $("<li>").text(country);
-      $("#countries").append(li);
+      $(".search-container").append(li);
    }
    
    // add a clear button to clear the countries array and local storage
    let clearBtn = $("<button>").text("Clear");
-   $("#countries").append(clearBtn);
+   $(".search-container").append(clearBtn);
     // listener for the clear button
    clearBtn.on("click", function () {
       // clear the countries array
@@ -31,9 +34,19 @@ function displayCountries() {
       // clear local storage
       localStorage.clear();
       // clear the countries div
-      $("#countries").empty();
+      $(".search-container").empty();
    }
    );
+
+    // search in local storage
+    $(".search-container li").on("click", function () {
+      // get the text of the country that was clicked
+      let country = $(this).text();
+      // set the value of the search field to the country that was clicked
+      $("#search").val(country);
+      // trigger the click event on the submit button
+      $("#submit").trigger("click");
+  });
 }
 
 //-- variables for opentripmap
@@ -63,6 +76,8 @@ document.getElementById("submit").addEventListener("click", function () {
    displayCountries();
 }
 
+
+
   fetch("https://restcountries.com/v2/name/" + country)
     .then(function (response) {
       return response.json();
@@ -79,10 +94,16 @@ document.getElementById("submit").addEventListener("click", function () {
         $("#price").empty();
         $("#speakEnglish").empty();
         $("#police").empty();
+        // remove the searched country from the countries array and local storage
+        countries.pop();
+        localStorage.setItem("countries", JSON.stringify(countries));
+        displayCountries();
+
+
 
         // using sweet alert for pop up message - https://sweetalert.js.org/
         swal(
-          "Oops, " + country + " " + "is not a valid country",
+          "Oops, that is not a valid country",
           "Please try again!",
           "error"
           // when clicking on the button, reload the page          
@@ -149,6 +170,9 @@ document.getElementById("submit").addEventListener("click", function () {
         // if continent is not americas hide sub region
         document.getElementById("sub-region").style.display = "none";
       }
+      // centre the text
+      document.getElementById("searchData").style.textAlign = "center";
+
 
       // ----------------Translation---------------------------------------------------//
 
@@ -188,26 +212,39 @@ document.getElementById("submit").addEventListener("click", function () {
           })       
           .then(function (data) {
 
-            // display the translations and add a <h3> heading for each
+            // display the translations and add a <h3> heading for each and center the text
             if (i == 0) {
-                document.getElementById("toilet").innerHTML = "<h3>Where is the nearest toilet?</h3>" + data.responseData.translatedText;
-                }
+              document.getElementById("toilet").innerHTML =
+                "<h3>Where is the nearest toilet?</h3>" + data.responseData.translatedText;
+            }
 
             if (i == 1) {
-                document.getElementById("hospital").innerHTML = "<h3>Where is the nearest hospital?</h3>" + data.responseData.translatedText;
-                }
+              document.getElementById("hospital").innerHTML =
+                "<h3>Where is the nearest hospital?</h3>" + data.responseData.translatedText;
+            }
 
             if (i == 2) {
-                document.getElementById("price").innerHTML = "<h3>How much is this?</h3>" + data.responseData.translatedText;
-                }
+              document.getElementById("price").innerHTML =
+                "<h3>How much is this?</h3>" + data.responseData.translatedText;
+            }
 
             if (i == 3) {
-                document.getElementById("speakEnglish").innerHTML = "<h3>Do you speak English?</h3>" + data.responseData.translatedText;
-                }
-
+              document.getElementById("speakEnglish").innerHTML =
+                "<h3>Do you speak English?</h3>" + data.responseData.translatedText;
+            }
+            
             if (i == 4) {
-                document.getElementById("police").innerHTML = "<h3>Where is the nearest police station?</h3>" + data.responseData.translatedText;
-                }
+              document.getElementById("police").innerHTML =
+                "<h3>Where is the nearest police station?</h3>" + data.responseData.translatedText;
+            // } centre the text
+            document.getElementById("toilet").style.textAlign = "center";
+            document.getElementById("hospital").style.textAlign = "center";
+            document.getElementById("price").style.textAlign = "center";
+            document.getElementById("speakEnglish").style.textAlign = "center";
+            document.getElementById("police").style.textAlign = "center";
+            }
+
+        
 
                  // if trans language is en then overide the error from the api and display the english version of the phrase
             if (transLanguage == "en") {
@@ -229,7 +266,13 @@ document.getElementById("submit").addEventListener("click", function () {
 
                 if (i == 4) {
                     document.getElementById("police").innerHTML = "<h3>Where is the nearest police station?</h3>" + phrases[i];
-                    }
+                    // } centre the text
+                    document.getElementById("toilet").style.textAlign = "center";
+                    document.getElementById("hospital").style.textAlign = "center";
+                    document.getElementById("price").style.textAlign = "center";
+                    document.getElementById("speakEnglish").style.textAlign = "center";
+                    document.getElementById("police").style.textAlign = "center";
+                }   
                 }
             
             });
