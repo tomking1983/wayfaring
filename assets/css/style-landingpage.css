@@ -204,13 +204,6 @@ button#next_button:active
 }
 
 
-/* previous search */
-.search-container li {
-    list-style-type: none;
-    cursor: pointer;
-}
-
-
 /* basic structural */
 
 .hide {
@@ -318,10 +311,9 @@ p .list-group-item-text:active
     background-color: var(--brown) !important;
 }
 
-
-
-
-
+.carousel-img{
+    width: 100% !important;
+}
 
 /* For Footer  */
 
