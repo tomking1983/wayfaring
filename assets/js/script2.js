@@ -185,11 +185,11 @@ document.getElementById("submit").addEventListener("click", function () {
       // get the language code
       let transLanguage = data[0].languages[0].iso639_1;
       let phrases = [
-        "Where is the nearest toilet",
-        "Where is the nearest hospital",
-        "How much is this?",
-        "Do you speak English?",
-        "Where is the nearest police station?",
+        // "Where is the nearest toilet?",
+        // "Where is the nearest hospital",
+        // "How much is this?",
+        // "Do you speak English?",
+        // "Where is the nearest police station?",
       ];
 
       const options = {
