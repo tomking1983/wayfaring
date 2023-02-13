@@ -1,5 +1,8 @@
-// display the countries the user has searched for
-// create an array for local storage to store the countries the user has searched for
+  //-- =========================================================
+  //-- Local Storage
+  //-- =========================================================
+
+// Local Storage array
 let countries = [];
 // check if there is anything in local storage
 if (localStorage.getItem("countries") != null) {
@@ -72,6 +75,8 @@ document.getElementById("submit").addEventListener("click", function () {
    localStorage.setItem("countries", JSON.stringify(countries));
    displayCountries();
 }
+
+
 
   fetch("https://restcountries.com/v2/name/" + country)
     .then(function (response) {
@@ -167,7 +172,7 @@ document.getElementById("submit").addEventListener("click", function () {
       }
       // centre the text
       document.getElementById("searchData").style.textAlign = "center";
-      
+
 
       // ----------------Translation---------------------------------------------------//
 
