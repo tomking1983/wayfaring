@@ -178,7 +178,7 @@ button,
     background-color: var(--green);
     border: solid 0.2rem var(--vintage);
     border-radius: 5px;
-    box-shadow: 0.3rem 0.3rem var(--charcoal);
+    box-shadow: 0.3rem 0.3rem var(--grey);
 }
 
 button:hover, 
@@ -199,9 +199,10 @@ button#next_button:active
 }
 
 .currBtn {
-    font-size: 1rem;
+    font-size: 1.5rem;
     padding: 0.4rem;
     vertical-align: middle;
+    width: 80px;
 }
 
 #next_button {
@@ -272,19 +273,39 @@ button#next_button:active
 
 /* For Exchange Rates API */
 
+.currForEx {
+    font-size: 1.5rem;
+}
+
 .termsText {
     font-style: italic; 
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 }
 
-a.terms {
+a:link .termsURL,
+a:visited .termsURL {
     font-size: 1.2rem;
     font-style: italic;
+    text-decoration: underline;
+    transition: color 0.1s;
+    cursor: pointer;
+}
+
+a:hover .termsURL {
+    color: var(--green) !important;
+    font-size: 1.2rem;
+    background-color: transparent !important;
+}
+
+a:active .termsURL {
+    color: var(--green) !important;
+    font-size: 1.2rem;
+    background-color: transparent !important;
 }
 
 
 
-/* styling for xxx */
+/* styling for Open Map */
 
 a:link .list-group-item,
 a:visited .list-group-heading {

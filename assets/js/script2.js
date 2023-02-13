@@ -64,6 +64,9 @@ document.getElementById("submit").addEventListener("click", function () {
   country = document.getElementById("search").value;
   // clear search field
   document.getElementById("search").value = "";
+  
+  //-- Pei Clear the Forex
+  document.getElementById("forEx").innerHTML = "";
 
   // listener for the enter key
   document.getElementById("search").addEventListener("keyup", function (event) {
@@ -300,7 +303,6 @@ document.getElementById("submit").addEventListener("click", function () {
       if (isForEx === true) {
         
         let apiKey =  "73371eacab78c8782c5a311f";
-        let currencyCode = "SGD";
         let queryUrl =  "https://v6.exchangerate-api.com/v6/"+ apiKey + "/latest/" + currencyCode;
         const settings = {
           "async": true,
@@ -312,6 +314,7 @@ document.getElementById("submit").addEventListener("click", function () {
         $.ajax(settings).done(function (response) {
           // console.log(response);
           localStorage.setItem("currListFullArray",JSON.stringify(response));
+          
         });
 	
         var currListFullArray;
@@ -321,6 +324,7 @@ document.getElementById("submit").addEventListener("click", function () {
 
         let currDestEl = document.createElement("span");
         currDestEl.setAttribute("id", "currDest");
+        currDestEl.setAttribute("class", "currForEx");    
         forExDivEl.appendChild(currDestEl);
 
         const currMultiplier = 10;
