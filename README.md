@@ -27,6 +27,7 @@ The Wayfaring app is the place to go to find all the important travel informatio
     * the country's basic details such as capital city, language, currency code, dialing code etc
     * beautiful pictures of the selected country will be displayed
     * A handy list of traveler's common questions such as "where is the nearest toilet?" is translated into local language.
+    * Display currency exchange information based on the currency code.
     * a list of points of interest for the capital city is displayed with pictures and descriptions.
 
 
@@ -137,6 +138,7 @@ MIT License
 * When a user searched for a valid country, details of the country such as capital city, currency, dialing code etc are presented.
 * ??? Users will be presented with beautiful pictures of the selected country/city.
 * A handy list of common phrases/questions that a travel might need translated is also presented in the local language.
+* The destination country's currency is converted to 4 main currencies (USD, EUR, CNY and GBP). If the destination country's currency is one of the 4 main currencies then its exchange conversion will be excluded.
 * A list of points of interests within 3km of the capital city is also presented with pictures and descriptions where available from wikipedia.
 * User search history is stored in client-side browser storage. Users can also delete their Wayfaring search history at a click of a button.
   
