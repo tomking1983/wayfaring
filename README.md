@@ -140,10 +140,11 @@ MIT License
 * A list of points of interests within 3km of the capital city is also presented with pictures and descriptions where available from wikipedia.
 * User search history is stored in client-side browser storage. Users can also delete their Wayfaring search history at a click of a button.
   
-  
+
 ### Extra Features
  * Currency exchange to the user's choice of currency
  * Details of the user's home country embassy in the destination country.
+ 
 
 
 
