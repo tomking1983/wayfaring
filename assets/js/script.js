@@ -15,17 +15,17 @@ if (localStorage.getItem("countries") != null) {
     localStorage.setItem("countries", JSON.stringify(countries));
     function displayCountries() {
     // clear the data in the countries div
-    $("#countries").empty();
+    $(".search-container").empty();
     // loop through the countries array and display the countries
     for (let i = 0; i < countries.length; i++) {
         let country = countries[i];
         let li = $("<li>").text(country);
-        $("#countries").append(li);
+        $(".search-container").append(li);
     }
 
     // add a clear button to clear the countries array and local storage
     let clearBtn = $("<button>").text("Clear");
-    $("#countries").append(clearBtn);
+    $(".search-container").append(clearBtn);
     // listener for the clear button
     clearBtn.on("click", function () {
         // clear the countries array
@@ -33,9 +33,19 @@ if (localStorage.getItem("countries") != null) {
         // clear local storage
         localStorage.clear();
         // clear the countries div
-        $("#countries").empty();
+        $(".search-container").empty();
     }
     );
+
+    // search contries in local storage
+    $(".serach-container li").on("click", function () {
+        // get the text of the country that was clicked
+        let country = $(this).text();
+        // set the value of the search field to the country that was clicked
+        $("#search").val(country);
+        // trigger the click event on the submit button
+        $("#submit").trigger("click");
+    });
 
 }
 
