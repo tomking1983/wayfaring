@@ -203,8 +203,6 @@ button#next_button:active
     visibility: hidden;
 }
 
-
-
 /* basic structural */
 
 .hide {
@@ -312,10 +310,9 @@ p .list-group-item-text:active
     background-color: var(--brown) !important;
 }
 
-
-
-
-
+.carousel-img{
+    width: 100% !important;
+}
 
 /* For Footer  */
 
