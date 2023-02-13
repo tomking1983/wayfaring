@@ -83,10 +83,11 @@ p {
 a {
     color: var(--brownDark);
     font-size: 1.5rem;
-    text-decoration: none;
+    text-decoration: underline;
     transition: color 0.1s;
     cursor: pointer;
 }
+
 
 
 
@@ -197,6 +198,11 @@ button#next_button:active
     transform: translateY(0.4rem);
 }
 
+.currBtn {
+    font-size: 1rem;
+    padding: 0.4rem;
+    vertical-align: middle;
+}
 
 #next_button {
     margin-top: 1rem;
@@ -262,6 +268,23 @@ button#next_button:active
     font-size: 1.8rem;
     line-height: 3rem;
 }
+
+
+/* For Exchange Rates API */
+
+.termsText {
+    font-style: italic; 
+    font-size: 1.2rem;
+}
+
+a.terms {
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+
+
+/* styling for xxx */
 
 a:link .list-group-item,
 a:visited .list-group-heading {
