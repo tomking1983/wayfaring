@@ -94,8 +94,38 @@ document.getElementById("submit").addEventListener("click", function () {
 
 
   // Nathalie clear pixabay cont
-  let pictureCont = document.getElementById("pixabay-cont")
-  pictureCont.innerHTML= "";
+  document.getElementById("pixabay-cont").innerHTML= "";
+  
+  //--Pei: clear country of the month
+  document.getElementById("countryOfTheMth").setAttribute("class","hide");
+  //--Pei: update h2 to new country name 
+
+document.getElementById("ctyOfMth").addEventListener("click", function() {
+  fetchApis("united kingdom");
+  destMthEl.innerText = "Destination of the Month";
+  document.getElementById("countryOfTheMth").setAttribute("class","visible");
+});
+
+  //--Pei: add button of the month 
+  let destMthEl = document.getElementById("destMth");
+  destMthEl.innerText = country;
+  destMthEl.setAttribute("style","text-transform: capitalize;");  
+
+  switch (country) {
+    case "united kingdom" : 
+      destMthEl.innerText = "Destination of the Month";
+      document.getElementById("countryOfTheMth").setAttribute("class","visible");
+      break;
+    case "britain" :
+      destMthEl.innerText = "Destination of the Month";
+      document.getElementById("countryOfTheMth").setAttribute("class","visible");
+      break;  
+    default:  
+      let navBtnEl = document.getElementById("ctyOfMth");
+      navBtnEl.setAttribute("style","display: inline;");
+      navBtnEl.setAttribute("class","visible");
+  };
+
 
   // listener for the enter key
   document.getElementById("search").addEventListener("keyup", function (event) {
@@ -160,7 +190,7 @@ function fetchApis(country) {
       //-- =========================================================
       //-- Rest Countries data display
       //-- =========================================================
-
+      console.log("rest api:", data);
       // display data
       document.getElementById("name-common").innerHTML = data[0].name;
 
@@ -223,7 +253,7 @@ function fetchApis(country) {
       // get the language code
       let transLanguage = data[0].languages[0].iso639_1;
       let phrases = [
-        // "Where is the nearestgit checkout main toilet?",
+        // "Where is the nearest toilet?",
         // "Where is the nearest hospital",
         // "How much is this?",
         // "Do you speak English?",
@@ -644,7 +674,10 @@ function fetchApis(country) {
       //-- Nathalie - pixabay API
       //-- =========================================================
 
-      fetch('https://pixabay.com/api/?key=33509086-cc05bf73b92e15cea747beecb&q='+ countryName +'&image_type=photo&category=travel&safesearch=true&per_page=6')
+
+      let pictureCont = document.getElementById("pixabay-cont");
+
+      fetch('https://pixabay.com/api/?key=33509086-cc05bf73b92e15cea747beecb&q='+ country +'&image_type=photo&category=travel&safesearch=true&per_page=6')
     .then(function (response) {
         return response.json();
     })
