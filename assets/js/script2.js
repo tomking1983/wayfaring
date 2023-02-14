@@ -336,19 +336,20 @@ document.getElementById("submit").addEventListener("click", function () {
           apiKey +
           "/latest/" +
           currencyCode;
-        const settings = {
-          async: true,
-          crossDomain: true,
-          url: queryUrl,
-          method: "GET",
-        };
+        
+      fetch(queryUrl)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          if (data.status == 404) {
+            console.log("data.status:", data.status);
+          };
+          localStorage.setItem("currListFullArray", JSON.stringify(data));
+        }); 
 
-        $.ajax(settings).done(function (response) {
-          // console.log(response);
-          localStorage.setItem("currListFullArray", JSON.stringify(response));
-        });
+        let currListFullArray;
 
-        var currListFullArray;
         currListFullArray = JSON.parse(
           localStorage.getItem("currListFullArray")
         );
