@@ -385,3 +385,17 @@ p .list-group-item-text:active
     margin-top: 0px;
     font-style: italic;
 }
+
+#pixabay-cont img{
+
+    object-fit: cover;
+    height:300px;
+    width:300px;
+    margin: 0.5rem;
+    border-radius: 5px;
+}
+
+#pixabay-cont p{
+
+    font-size: 2rem;
+}
