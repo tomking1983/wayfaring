@@ -64,10 +64,6 @@ function displayCountries() {
     $("#search").val(country);
     // trigger the click event on the submit button
     $("#submit").trigger("click");
-    // when search is clicked on in local storage, remove it from the array
-    countries.splice(countries.indexOf(country), 1);
-    // save the countries array to local storage
-    localStorage.setItem("countries", JSON.stringify(countries));
     // display the countries
     displayCountries();
   });
