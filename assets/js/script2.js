@@ -327,7 +327,7 @@ document.getElementById("submit").addEventListener("click", function () {
       //-- Pei Exchange Rate API
       //-- =========================================================
 
-      var isForEx = true;
+      var isForEx = false;
 
       if (isForEx === true) {
         let apiKey = "73371eacab78c8782c5a311f";
