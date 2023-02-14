@@ -389,7 +389,7 @@ document.getElementById("submit").addEventListener("click", function () {
           "CNY"
         );
         let currSelectArr;
-
+        
         switch (currencyCode) {
           case "USD":
             currSelectArr = [
