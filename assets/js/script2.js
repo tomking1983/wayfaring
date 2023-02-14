@@ -22,11 +22,28 @@ function displayCountries() {
     let country = countries[i];
     let li = $("<li>").text(country);
     $(".search-container").append(li);
+    li.css("text-transform", "uppercase");
+    // add a clear button to delete country from local storage
+    let clearBtn = $("<button>").text("Clear " + country);
+    clearBtn.css("text-transform", "uppercase");
+    li.append(clearBtn);
+    $(".search-container").append(clearBtn);
+    // listener for the clear button
+    clearBtn.on("click", function () {
+      // remove the country from the countries array
+      countries.splice(i, 1);
+      // save the country to local storage
+      localStorage.setItem("countries", JSON.stringify(countries));
+      // display the countries
+      displayCountries();
+    });
   }
 
   // add a clear button to clear the countries array and local storage
-  let clearBtn = $("<button>").text("Clear");
+  let clearBtn = $("<button>").text("Clear All");
   $(".search-container").append(clearBtn);
+  clearBtn.css("display", "block");
+  clearBtn.css("text-transform", "uppercase");
   // listener for the clear button
   clearBtn.on("click", function () {
     // clear the countries array
@@ -36,6 +53,7 @@ function displayCountries() {
     // clear the countries div
     $(".search-container").empty();
   });
+
 
   // search in local storage
   $(".search-container li").on("click", function () {
