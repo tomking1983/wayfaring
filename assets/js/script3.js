@@ -111,8 +111,13 @@ document.getElementById("submit").addEventListener("click", function () {
     countries.push(country);
     localStorage.setItem("countries", JSON.stringify(countries));
     displayCountries();
-  }
+  };
 
+  fetchApis(country);
+
+});
+
+function fetchApis(country) {
   //-- =========================================================
   //-- Rest Countries API
   //-- =========================================================
@@ -468,9 +473,6 @@ document.getElementById("submit").addEventListener("click", function () {
         }); 
 
 
-
-
-
         //-- Pei End of Exchange Rate API
       }
 
@@ -679,4 +681,8 @@ document.getElementById("submit").addEventListener("click", function () {
 
       // end of REST Countries
     });
-});
+//-- end of function fetchApis()
+}
+
+fetchApis("united kingdom");
+
