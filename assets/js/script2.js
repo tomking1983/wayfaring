@@ -18,7 +18,7 @@ function displayCountries() {
   // clear the data in the countries div
   $(".search-container").empty();
   // only display each country once
-  // countries = [...new Set(countries)];
+  countries = [...new Set(countries)];
   // loop through the countries array and display the countries
   for (let i = 0; i < countries.length; i++) {
     let country = countries[i];
@@ -207,7 +207,7 @@ document.getElementById("submit").addEventListener("click", function () {
       // get the language code
       let transLanguage = data[0].languages[0].iso639_1;
       let phrases = [
-        // "Where is the nearest toilet?",
+        "Where is the nearest toilet?",
         // "Where is the nearest hospital",
         // "How much is this?",
         // "Do you speak English?",
@@ -228,10 +228,10 @@ document.getElementById("submit").addEventListener("click", function () {
       for (let i = 0; i < phrases.length; i++) {
         fetch(
           "https://translated-mymemory---translation-memory.p.rapidapi.com/get?langpair=en%7C" +
-            transLanguage +
-            "&q=" +
-            phrases[i] +
-            "&mt=1&onlyprivate=0&de=a%40b.c",
+          transLanguage +
+          "&q=" +
+          phrases[i] +
+          "&mt=1&onlyprivate=0&de=a%40b.c",
           options
         )
           .then(function (response) {
@@ -300,7 +300,7 @@ document.getElementById("submit").addEventListener("click", function () {
               if (i == 4) {
                 document.getElementById("police").innerHTML =
                   "<h3>Where is the nearest police station?</h3>" + phrases[i];
-                // } centre the text
+                //  centre the text
                 document.getElementById("toilet").style.textAlign = "center";
                 document.getElementById("hospital").style.textAlign = "center";
                 document.getElementById("price").style.textAlign = "center";
@@ -592,8 +592,8 @@ document.getElementById("submit").addEventListener("click", function () {
           poi.innerHTML += data1st.wikipedia_extracts
             ? data1st.wikipedia_extracts.html
             : data1st.info
-            ? data1st.info.descr
-            : "No description";
+              ? data1st.info.descr
+              : "No description";
         }
       }
 
@@ -608,8 +608,8 @@ document.getElementById("submit").addEventListener("click", function () {
         poi.innerHTML += data.wikipedia_extracts
           ? data.wikipedia_extracts.html
           : data.info
-          ? data.info.descr
-          : "No description";
+            ? data.info.descr
+            : "No description";
 
         // poi.innerHTML += `<p class="poiP"><a target="_blank" href="${data.otm}">Show more at OpenTripMap</a></p>`;
       }
