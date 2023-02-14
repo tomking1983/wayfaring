@@ -62,17 +62,6 @@
             <p>Use the variables below to tailor the information you recieve. dont worrry if you dont select anything we will stil display you some basic information on your choosen country</p>
             <form>
 
-               <!-- country search -->
-               <!-- <div class="form-group row">
-                  <label for="search2" class="col-sm-2 col-form-label"></label>
-                  <div class="col-sm-10">
-                  <input type="text" class="form-control" id="search2" placeholder="Countries to explore ...">
-                  <button id="submit2">Submit</button>
-                  </div>
-               </div> -->
-               
-               
-
                <!-- radio checkbox variables -->
                <fieldset class="form-group row">
 
@@ -214,7 +203,7 @@
 
       <!-- Rest Countries API -->
       <section class="row">
-         <div class="col-12">
+         <div class="col-lg-6 col-md-12">
             <h2>Country Information</h2>
             <section id="searchData">
                <img id="flag" src="" alt="" />
@@ -230,7 +219,18 @@
                <p id="dial-code"></p>
                <p id="translation"></p>
                <div id="map" src=""></div>
-            </section>
+            </div>
+         <div class="col-lg-6 col-md-12">
+            <h2>A Snapshot</h2>
+               <div class="container-fluid">
+                  <div class="row">
+                     <div class="col" id="pixabay-cont">
+                        
+                     </div>
+                  </div>
+               </div>
+         </div>
+      </section>
 
             <section id="translations">
                <h2 id="transHeading">Translations of useful phrases</h2>
