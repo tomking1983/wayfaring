@@ -365,6 +365,13 @@ p .list-group-item-text:active
     width: 100% !important;
 }
 
+.carousel-heading{
+    font-size: 4rem;
+    background-color: rgba(132,151,145, 0.4);
+    color: aliceblue;
+
+}
+
 /* For Footer  */
 
 .footerP {
