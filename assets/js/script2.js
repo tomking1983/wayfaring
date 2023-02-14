@@ -17,6 +17,8 @@ localStorage.setItem("countries", JSON.stringify(countries));
 function displayCountries() {
   // clear the data in the countries div
   $(".search-container").empty();
+  // only display each country once
+  // countries = [...new Set(countries)];
   // loop through the countries array and display the countries
   for (let i = 0; i < countries.length; i++) {
     let country = countries[i];
@@ -54,7 +56,6 @@ function displayCountries() {
     $(".search-container").empty();
   });
 
-
   // search in local storage
   $(".search-container li").on("click", function () {
     // get the text of the country that was clicked
@@ -77,22 +78,22 @@ var capitalCity;
 var countryName;
 var currencyCode;
 
+// listener for the enter key
+document.getElementById("search").addEventListener("keyup", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("submit").click();
+  }
+});
+
 //listener for the submit button
 document.getElementById("submit").addEventListener("click", function () {
   country = document.getElementById("search").value;
   // clear search field
   document.getElementById("search").value = "";
-  
+
   //-- Pei Clear the Forex
   document.getElementById("forEx").innerHTML = "";
-
-  // listener for the enter key
-  document.getElementById("search").addEventListener("keyup", function (event) {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      document.getElementById("submit").click();
-    }
-  });
 
   //   save the search to local storage if valid
   if (country != "") {
@@ -227,10 +228,10 @@ document.getElementById("submit").addEventListener("click", function () {
       for (let i = 0; i < phrases.length; i++) {
         fetch(
           "https://translated-mymemory---translation-memory.p.rapidapi.com/get?langpair=en%7C" +
-          transLanguage +
-          "&q=" +
-          phrases[i] +
-          "&mt=1&onlyprivate=0&de=a%40b.c",
+            transLanguage +
+            "&q=" +
+            phrases[i] +
+            "&mt=1&onlyprivate=0&de=a%40b.c",
           options
         )
           .then(function (response) {
@@ -319,68 +320,105 @@ document.getElementById("submit").addEventListener("click", function () {
       var isForEx = true;
 
       if (isForEx === true) {
-        
-        let apiKey =  "73371eacab78c8782c5a311f";
-        let queryUrl =  "https://v6.exchangerate-api.com/v6/"+ apiKey + "/latest/" + currencyCode;
+        let apiKey = "73371eacab78c8782c5a311f";
+        let queryUrl =
+          "https://v6.exchangerate-api.com/v6/" +
+          apiKey +
+          "/latest/" +
+          currencyCode;
         const settings = {
-          "async": true,
-          "crossDomain": true,
-          "url": queryUrl,
-          "method": "GET",
+          async: true,
+          crossDomain: true,
+          url: queryUrl,
+          method: "GET",
         };
 
         $.ajax(settings).done(function (response) {
           // console.log(response);
-          localStorage.setItem("currListFullArray",JSON.stringify(response));
-          
+          localStorage.setItem("currListFullArray", JSON.stringify(response));
         });
-	
+
         var currListFullArray;
-        currListFullArray = JSON.parse(localStorage.getItem("currListFullArray"));
-        
+        currListFullArray = JSON.parse(
+          localStorage.getItem("currListFullArray")
+        );
+
         let forExDivEl = document.getElementById("forEx");
 
         let currDestEl = document.createElement("span");
         currDestEl.setAttribute("id", "currDest");
-        currDestEl.setAttribute("class", "currForEx");    
+        currDestEl.setAttribute("class", "currForEx");
         forExDivEl.appendChild(currDestEl);
 
         const currMultiplier = 10;
 
-
         function reformatCurr(number, currencyCode) {
           let formatCurrency = new Intl.NumberFormat(undefined, {
-            style: 'currency',
+            style: "currency",
             currency: currencyCode,
           });
           let currValueString = formatCurrency.format(number);
-          return currValueString;	
+          return currValueString;
         }
 
-        let currUSD = reformatCurr(currListFullArray.conversion_rates.USD * currMultiplier, "USD");
-        let currEuro = reformatCurr(currListFullArray.conversion_rates.EUR * currMultiplier, "EUR");
-        let currGBP = reformatCurr(currListFullArray.conversion_rates.GBP * currMultiplier, "GBP");
-        let currCNY = reformatCurr(currListFullArray.conversion_rates.CNY * currMultiplier, "CNY");
+        let currUSD = reformatCurr(
+          currListFullArray.conversion_rates.USD * currMultiplier,
+          "USD"
+        );
+        let currEuro = reformatCurr(
+          currListFullArray.conversion_rates.EUR * currMultiplier,
+          "EUR"
+        );
+        let currGBP = reformatCurr(
+          currListFullArray.conversion_rates.GBP * currMultiplier,
+          "GBP"
+        );
+        let currCNY = reformatCurr(
+          currListFullArray.conversion_rates.CNY * currMultiplier,
+          "CNY"
+        );
         let currSelectArr;
 
-        switch(currencyCode) {
+        switch (currencyCode) {
           case "USD":
-            currSelectArr = [{"curr": "EUR", "value": currEuro,}, {"curr": "CNY","value": currCNY,}, {"curr": "GBP", "value": currGBP,},];
+            currSelectArr = [
+              { curr: "EUR", value: currEuro },
+              { curr: "CNY", value: currCNY },
+              { curr: "GBP", value: currGBP },
+            ];
             break;
           case "EUR":
-            currSelectArr = [{"curr": "USD", "value": currUSD,}, {"curr": "CNY", "value": currCNY,}, {"curr": "GBP", "value": currGBP,},];
+            currSelectArr = [
+              { curr: "USD", value: currUSD },
+              { curr: "CNY", value: currCNY },
+              { curr: "GBP", value: currGBP },
+            ];
             break;
           case "CNY":
-            currSelectArr = [{"curr": "USD", "value": currUSD,}, {"curr": "EUR", "value": currEuro,}, {"curr": "GBP", "value": currGBP,},];
-            break;  
+            currSelectArr = [
+              { curr: "USD", value: currUSD },
+              { curr: "EUR", value: currEuro },
+              { curr: "GBP", value: currGBP },
+            ];
+            break;
           case "GBP":
-            currSelectArr = [{"curr": "USD","value": currUSD,}, {"curr": "EUR","value": currEuro,},{"curr": "CNY","value": currCNY,},];
-            break; 	
+            currSelectArr = [
+              { curr: "USD", value: currUSD },
+              { curr: "EUR", value: currEuro },
+              { curr: "CNY", value: currCNY },
+            ];
+            break;
           default:
-            currSelectArr = [{"curr": "USD","value": currUSD,},{"curr": "EURO","value": currEuro,},{"curr": "CNY","value": currCNY,},{"curr": "GBP","value": currGBP,},];
+            currSelectArr = [
+              { curr: "USD", value: currUSD },
+              { curr: "EURO", value: currEuro },
+              { curr: "CNY", value: currCNY },
+              { curr: "GBP", value: currGBP },
+            ];
         }
 
-        currDestEl.innerText = reformatCurr(currMultiplier, currencyCode) + " is worth ";
+        currDestEl.innerText =
+          reformatCurr(currMultiplier, currencyCode) + " is worth ";
 
         for (let i = 0; i < currSelectArr.length; i++) {
           let currBtnEl = document.createElement("button");
@@ -393,10 +431,10 @@ document.getElementById("submit").addEventListener("click", function () {
           currBtn.addEventListener("mouseover", function () {
             currBtnEl.innerText = currSelectArr[i].value;
           });
-          currBtn.addEventListener("mouseout", function () { 	
-            currBtnEl.innerText = "in " + currSelectArr[i].curr; 
-          });	
-        };
+          currBtn.addEventListener("mouseout", function () {
+            currBtnEl.innerText = "in " + currSelectArr[i].curr;
+          });
+        }
 
         function getDateTimeFormat(unixDate, format) {
           let timeString = dayjs(unixDate * 1000).format(format);
@@ -406,18 +444,20 @@ document.getElementById("submit").addEventListener("click", function () {
         let currUpdateEl = document.createElement("p");
         currUpdateEl.setAttribute("id", "currUpdate");
         currUpdateEl.setAttribute("class", "termsText");
-        currUpdateEl.innerHTML = 
-        "{Exchange rates last updated on " 
-        + getDateTimeFormat(currListFullArray.time_last_update_unix, "DD-MMM-YYYY, HHMM") + "h.  Please see <a href='" 
-        + currListFullArray.terms_of_use 
-        + "' alt='Terms of User' target='_blank' class='termsURL'>Exchange Rate API Terms of Use</a>.}";
+        currUpdateEl.innerHTML =
+          "{Exchange rates last updated on " +
+          getDateTimeFormat(
+            currListFullArray.time_last_update_unix,
+            "DD-MMM-YYYY, HHMM"
+          ) +
+          "h.  Please see <a href='" +
+          currListFullArray.terms_of_use +
+          "' alt='Terms of User' target='_blank' class='termsURL'>Exchange Rate API Terms of Use</a>.}";
 
         forExDivEl.appendChild(currUpdateEl);
 
-      //-- Pei End of Exchange Rate API  
-      };
-
-
+        //-- Pei End of Exchange Rate API
+      }
 
       //-- =========================================================
       //-- Pei Open Map API
@@ -552,8 +592,8 @@ document.getElementById("submit").addEventListener("click", function () {
           poi.innerHTML += data1st.wikipedia_extracts
             ? data1st.wikipedia_extracts.html
             : data1st.info
-              ? data1st.info.descr
-              : "No description";
+            ? data1st.info.descr
+            : "No description";
         }
       }
 
@@ -568,8 +608,8 @@ document.getElementById("submit").addEventListener("click", function () {
         poi.innerHTML += data.wikipedia_extracts
           ? data.wikipedia_extracts.html
           : data.info
-            ? data.info.descr
-            : "No description";
+          ? data.info.descr
+          : "No description";
 
         // poi.innerHTML += `<p class="poiP"><a target="_blank" href="${data.otm}">Show more at OpenTripMap</a></p>`;
       }
