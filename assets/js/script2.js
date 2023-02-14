@@ -64,6 +64,9 @@ document.getElementById("submit").addEventListener("click", function () {
   country = document.getElementById("search").value;
   // clear search field
   document.getElementById("search").value = "";
+  
+  //-- Pei Clear the Forex
+  document.getElementById("forEx").innerHTML = "";
 
   // listener for the enter key
   document.getElementById("search").addEventListener("keyup", function (event) {
@@ -290,6 +293,113 @@ document.getElementById("submit").addEventListener("click", function () {
           });
         // end of translation
       }
+
+      //-- =========================================================
+      //-- Pei Exchange Rate API
+      //-- =========================================================
+
+      var isForEx = true;
+
+      if (isForEx === true) {
+        
+        let apiKey =  "73371eacab78c8782c5a311f";
+        let queryUrl =  "https://v6.exchangerate-api.com/v6/"+ apiKey + "/latest/" + currencyCode;
+        const settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": queryUrl,
+          "method": "GET",
+        };
+
+        $.ajax(settings).done(function (response) {
+          // console.log(response);
+          localStorage.setItem("currListFullArray",JSON.stringify(response));
+          
+        });
+	
+        var currListFullArray;
+        currListFullArray = JSON.parse(localStorage.getItem("currListFullArray"));
+        
+        let forExDivEl = document.getElementById("forEx");
+
+        let currDestEl = document.createElement("span");
+        currDestEl.setAttribute("id", "currDest");
+        currDestEl.setAttribute("class", "currForEx");    
+        forExDivEl.appendChild(currDestEl);
+
+        const currMultiplier = 10;
+
+
+        function reformatCurr(number, currencyCode) {
+          let formatCurrency = new Intl.NumberFormat(undefined, {
+            style: 'currency',
+            currency: currencyCode,
+          });
+          let currValueString = formatCurrency.format(number);
+          return currValueString;	
+        }
+
+        let currUSD = reformatCurr(currListFullArray.conversion_rates.USD * currMultiplier, "USD");
+        let currEuro = reformatCurr(currListFullArray.conversion_rates.EUR * currMultiplier, "EUR");
+        let currGBP = reformatCurr(currListFullArray.conversion_rates.GBP * currMultiplier, "GBP");
+        let currCNY = reformatCurr(currListFullArray.conversion_rates.CNY * currMultiplier, "CNY");
+        let currSelectArr;
+
+        switch(currencyCode) {
+          case "USD":
+            currSelectArr = [{"curr": "EUR", "value": currEuro,}, {"curr": "CNY","value": currCNY,}, {"curr": "GBP", "value": currGBP,},];
+            break;
+          case "EUR":
+            currSelectArr = [{"curr": "USD", "value": currUSD,}, {"curr": "CNY", "value": currCNY,}, {"curr": "GBP", "value": currGBP,},];
+            break;
+          case "CNY":
+            currSelectArr = [{"curr": "USD", "value": currUSD,}, {"curr": "EUR", "value": currEuro,}, {"curr": "GBP", "value": currGBP,},];
+            break;  
+          case "GBP":
+            currSelectArr = [{"curr": "USD","value": currUSD,}, {"curr": "EUR","value": currEuro,},{"curr": "CNY","value": currCNY,},];
+            break; 	
+          default:
+            currSelectArr = [{"curr": "USD","value": currUSD,},{"curr": "EURO","value": currEuro,},{"curr": "CNY","value": currCNY,},{"curr": "GBP","value": currGBP,},];
+        }
+
+        currDestEl.innerText = reformatCurr(currMultiplier, currencyCode) + " is worth ";
+
+        for (let i = 0; i < currSelectArr.length; i++) {
+          let currBtnEl = document.createElement("button");
+          currBtnEl.setAttribute("class", "currBtn");
+          currBtnEl.setAttribute("id", currSelectArr[i].curr);
+          currBtnEl.innerText = "in " + currSelectArr[i].curr;
+          forExDivEl.appendChild(currBtnEl);
+
+          let currBtn = document.getElementById(currSelectArr[i].curr);
+          currBtn.addEventListener("mouseover", function () {
+            currBtnEl.innerText = currSelectArr[i].value;
+          });
+          currBtn.addEventListener("mouseout", function () { 	
+            currBtnEl.innerText = "in " + currSelectArr[i].curr; 
+          });	
+        };
+
+        function getDateTimeFormat(unixDate, format) {
+          let timeString = dayjs(unixDate * 1000).format(format);
+          return timeString;
+        }
+
+        let currUpdateEl = document.createElement("p");
+        currUpdateEl.setAttribute("id", "currUpdate");
+        currUpdateEl.setAttribute("class", "termsText");
+        currUpdateEl.innerHTML = 
+        "{Exchange rates last updated on " 
+        + getDateTimeFormat(currListFullArray.time_last_update_unix, "DD-MMM-YYYY, HHMM") + "h.  Please see <a href='" 
+        + currListFullArray.terms_of_use 
+        + "' alt='Terms of User' target='_blank' class='termsURL'>Exchange Rate API Terms of Use</a>.}";
+
+        forExDivEl.appendChild(currUpdateEl);
+
+      //-- Pei End of Exchange Rate API  
+      };
+
+
 
       //-- =========================================================
       //-- Pei Open Map API
