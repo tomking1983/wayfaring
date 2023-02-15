@@ -253,11 +253,11 @@ function fetchApis(country) {
       // get the language code
       let transLanguage = data[0].languages[0].iso639_1;
       let phrases = [
-        // "Where is the nearest toilet?",
-        // "Where is the nearest hospital",
-        // "How much is this?",
-        // "Do you speak English?",
-        // "Where is the nearest police station?",
+        "Where is the nearest toilet?",
+        "Where is the nearest hospital",
+        "How much is this?",
+        "Do you speak English?",
+        "Where is the nearest police station?",
       ];
 
       const options = {
@@ -697,10 +697,12 @@ function fetchApis(country) {
 
         let piximg = document.createElement('img');
         piximg.setAttribute('src', './assets/images/pixabaylogo.png');
+        piximg.setAttribute('id', 'pixlogo')
         pictureCont.appendChild(piximg)
 
         let pixlink = document.createElement('a');
         pixlink.setAttribute('href', 'https://pixabay.com/');
+        pixlink.setAttribute('id', 'pixlink' )
         pixlink.innerHTML = 'PixaBay';
         pictureCont.appendChild(pixlink)
 
