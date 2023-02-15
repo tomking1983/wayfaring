@@ -92,21 +92,25 @@ N.A.
 Screen dumps of the deployed webpage:
 
 ### feature 
-![Deployed Webpage](assets/images)
+
+![Deployed Webpage](assets/images/wayfarer1.png)
 
 
+* Country information, beautiful scenic pictures and Currency Conversion
+
+![Deployed Webpage](assets/images/wayfarer2.png)
 
 
-
-### feature 
-![Deployed Webpage](assets/images/)
-
-![Deployed Webpage](assets/images/)
+* Translations
+![Deployed Webpage](assets/images/wayfarer3.png)
 
 
+* Points of Interests
+![Deployed Webpage](assets/images/wayfarer4.png)
 
-### error user input treatment
-![Deployed Webpage](assets/images/)
+
+* Error user input treatment
+![Deployed Webpage](assets/images/wayfarer5.png)
 
 
 
