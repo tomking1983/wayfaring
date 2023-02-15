@@ -249,6 +249,8 @@ button#next_button:active {
   transform: translateY(-50%);
 }
 
+
+
 /* For Open Map */
 
 .imgOpenMap {
@@ -369,7 +371,7 @@ p .list-group-item-text:hover,
 p .list-group-item-text:focus,
 p .list-group-item-text:active {
   color: var(--vintage) !important;
-  background-color: var(--brown) !important;
+  background-color: var(--grey) !important;
 }
 
 .carousel-img {
