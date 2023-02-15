@@ -720,4 +720,3 @@ function fetchApis(country) {
 }
 
 fetchApis("united kingdom");
-
