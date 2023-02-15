@@ -52,7 +52,7 @@ function displayCountries() {
     // clear the countries array
     countries = [];
     // clear local storage
-    localStorage.clear();
+    localStorage.removeItem("countries");
     // clear the countries div
     $(".search-container").empty();
   });
