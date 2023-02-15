@@ -429,3 +429,21 @@ p .list-group-item-text:active
 
     font-size: 2rem;
 }
+
+#pixlogo{
+    height: auto !important;
+
+
+}
+
+#pixlink{
+    color: var(--greenDark);
+    display: block;
+    font-size: 2.5rem;
+}
+
+#pixlink:hover{
+    background-color: var(--grey) !important;
+    display: block;
+    font-size: 2.5rem;
+}
