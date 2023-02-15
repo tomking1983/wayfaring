@@ -253,18 +253,18 @@ function fetchApis(country) {
       // get the language code
       let transLanguage = data[0].languages[0].iso639_1;
       let phrases = [
-        "Where is the nearest toilet?",
-        "Where is the nearest hospital",
-        "How much is this?",
-        "Do you speak English?",
-        "Where is the nearest police station?",
+        // "Where is the nearest toilet?",
+        // "Where is the nearest hospital",
+        // "How much is this?",
+        // "Do you speak English?",
+        // "Where is the nearest police station?",
       ];
 
       const options = {
         method: "GET",
         headers: {
           "X-RapidAPI-Key":
-            "a176a20944mshc76e53de9c9490bp1d0250jsnb4bb67925c41",
+            "c9016df6a0msh1fb8ff99a9595a1p191ca1jsn38f92a641376",
           "X-RapidAPI-Host":
             "translated-mymemory---translation-memory.p.rapidapi.com",
         },
