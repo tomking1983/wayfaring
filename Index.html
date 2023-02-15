@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="utf-8"/>
+   <meta charset="UTF-8">
    <title>Wayfaring</title>
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=no">
    
@@ -47,7 +47,7 @@
                   </div>
    
                   <p>
-                     A quick and easy way to search for basic information to aid you on your travels. Either use the search box above to return all of the the information we can on your choosen country.Or scroll down to select your variables to only display certain information.
+                     A quick and easy way to search for information to aid you on your travels.
                   </p>
 
                </div>
@@ -58,67 +58,32 @@
    </header>
 
    <main class="container-fluid">
-      <!-- Searches -->
       <section class="row">
+         <!-- Country of the month-->
          <div class = "col-lg-5 col-md-8 col-sm-12 border">
-            <p>Use the variables below to tailor the information you recieve. dont worrry if you dont select anything we will stil display you some basic information on your choosen country</p>
-            <form>
+            <h2 id="destMth">Destination of the Month</h2>
 
-               <!-- radio checkbox variables -->
-               <fieldset class="form-group row">
+            <div id="navBtnDiv">
+               <button class="navBtns"><a href="#countryInfor" style="color: white; text-decoration: none;">More Details</a></button>
+               <button class="navBtns"><a href="#photoAlbum">Picture Gallery</a></button> 
+               <button class="navBtns"><a href="#pois">Must See Places</a></button>
+               <button class="navBtns"><a href="#forEx">Forex</a></button>
+               <button class="navBtns"><a href="#transHeading">Local Lingo</a></button>
+               <button class="navBtns hide" id="ctyOfMth"><a href="#">Country of the Month</a></button>
+            </div>
+            <div id="countryOfTheMth">
+               <br><br>
+               <h3>🇬🇧 United Kingdom 🇬🇧</h3>
+               <p> 
+                  Few places cram in as much scenery, history and culture as the United Kingdom. It's a busy, eccentric and unique destination; a land of daft humour, tea and cake clichés and a thousand and one different personalities.
+                  She is a land where thrusting cities like London, Glasgow and Manchester share map space with the peaks of Snowdonia and the colossal slopes of the Highlands.</p>
+            
+            </div>
 
-                  <legend class="col-form-label col-7 float-sm-left pt-0">Currency conversion</legend>
-
-                  <div class="col-5">
-
-                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios"  value="option2">
-                     </div>
-
-                  </div>
-
-                  <legend class="col-form-label col-sm-7 float-sm-left pt-0">Helpful phrases</legend>
-
-                  <div class="col-sm-5">
-
-                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios"  value="option2">
-                     </div>
-                  </div>
-
-                  <legend class="col-form-label col-sm-7 float-sm-left pt-0">Pictures</legend>
-
-                  <div class="col-sm-5">
-                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios"  value="option1" checked>
-                     </div>
-                  </div>
-
-                  <legend class="col-form-label col-sm-7 float-sm-left pt-0">Places of interest in the country</legend>
-
-                  <div class="col-sm-5">
-                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios"  value="option1" checked>
-                     </div>
-                  </div>
-
-                  <legend class="col-form-label col-sm-7 float-sm-left pt-0">Places of interest in the Capital City</legend>
-
-                  <div class="col-sm-5">
-                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios"  value="option1" checked>
-                     </div>
-                  </div>
-               </fieldset>
-            </form>
          </div>
-         <div class="col-lg-3 col-md-5 col-sm-12 border">
-            <p>Previous Searches</p>
-            <hr>
-            <div class="search-container"></div>
-         </div>
+         <!-- Image  carousel-->
          <div class="col-lg-4 col-md-12 col-sm-12 border">
-            <p>Inspiration</p>
+            <h2>Inspirations</h2>
             <div class="container-fluid">
                <div class="row">
                   <div class="col">
@@ -200,15 +165,22 @@
                </div>
             </div>
          </div>
+         <!-- Search History -->
+         <div class="col-lg-3 col-md-5 col-sm-12 border">
+            <h2>Search History</h2>
+            <hr>
+            <div class="search-container"></div>
+         </div>
       </section>
 
 
       <!-- Rest Countries API -->
       <section class="row">
          <div class="col-lg-6 col-md-12">
-            <h2>Country Information</h2>
+            <h2 id="countryInfor">Country Information</h2>
             <section id="searchData">
-               <img id="flag" src="" alt="" />
+               <img id="flag" src="" alt="" style="margin-bottom: 20px;"/>
+               
                <h3 id="name-common"></h3>
                <p id="capital"></p>
                <p id="region"></p>
@@ -225,7 +197,7 @@
                <div id="map" src=""></div>
             </div>
          <div class="col-lg-6 col-md-12">
-            <h2>A Snapshot</h2>
+            <h2 id="photoAlbum">Picture Gallery</h2>
                <div class="container-fluid">
                   <div class="row">
                      <div class="col center" id="pixabay-cont">
@@ -237,7 +209,7 @@
       </section>
 
             <section id="translations">
-               <h2 id="transHeading">Translations of useful phrases</h2>
+               <h2 id="transHeading">Translations of Useful Phrases</h2>
       
                <p id="toilet"></p>
                <p id="hospital"></p>
@@ -249,7 +221,7 @@
       </section>
 
       <!-- Pei open map API  -->
-         <h2 class="visible">Popular Places to Visit in <span id="countryName"></span>
+         <h2 class="visible" id="pois">Popular Places to Visit in <span id="countryName"></span>
          </h2>
          <div id="info" class="alert alert-primary infoDiv visible">
          </div>
@@ -315,7 +287,7 @@
 
 <!-- own scripts -->
 
-<script type="text/javascript" src="assets/js/script2.js"></script>
+<script type="text/javascript" src="assets/js/script.js"></script>
 <script type="text/javascript" src="./assets/js/pixabay.js"></script>
 
 
