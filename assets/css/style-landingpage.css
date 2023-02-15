@@ -81,10 +81,9 @@ p {
 }
 
 a {
-    color: var(--brownDark);
+    color: var(--vintage);
     font-size: 1.5rem;
     text-decoration: underline;
-    transition: color 0.1s;
     cursor: pointer;
 }
 
@@ -279,6 +278,21 @@ background-color: var(--grey);
     text-align: center !important;
 }
 
+
+#searchData a{
+
+    color:var(--greenDark)
+
+}
+
+#searchData a:hover{
+
+    background-color:var(--grey)
+
+}
+
+
+
 .poiP p {
     margin: 20px auto !important;
     padding: 20px !important;
@@ -335,7 +349,7 @@ a:visited .list-group-heading {
 a:hover {
     color: var(--vintage) !important;
     font-size: 1.9rem;
-    background-color: var(--brown) !important;
+    /* background-color: var(--brown) !important; */
     text-shadow: 2px 2px var(--colorCharcoal);
 }
 
@@ -360,7 +374,7 @@ a:active {
 .active
 {
     color: var(--vintage) !important;
-    background-color: var(--brown) !important;
+    /* background-color: var(--brown) !important; */
 }
 
 .list-group-item-text {
