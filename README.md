@@ -55,7 +55,7 @@ SO THAT I can plan a trip accordingly
 
 
 
-[Deployment link for Wayfaring App](https://tomking1983/github.io/wayfaring/)
+[Deployment link for Wayfaring App](https://tomking1983.github.io/wayfaring/)
 
 
 ## Acceptance Criteria
