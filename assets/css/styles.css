@@ -332,7 +332,7 @@ a:visited .list-group-heading {
 }
 
 a:hover {
-  color: var(--vintage) !important;
+  color: var(--charcoal) !important;
   font-size: 1.9rem;
   /* background-color: var(--brown) !important; */
   text-shadow: 2px 2px var(--colorCharcoal);
@@ -341,7 +341,7 @@ a:hover {
 a:active {
   color: var(--vintage) !important;
   font-size: 1.9rem;
-  background-color: var(--brown) !important;
+  /* background-color: var(--brown) !important; */
 }
 
 .list-group-item-heading {
@@ -353,25 +353,25 @@ a:active {
 .list-group-item-heading:hover,
 .list-group-item-heading:active {
   color: var(--vintage) !important;
-  background-color: var(--brown) !important;
+  background-color: var(--ebony) !important;
 }
 
 .active {
-  color: var(--vintage) !important;
+  color: var(--charcoal) !important;
   /* background-color: var(--brown) !important; */
 }
 
 .list-group-item-text {
   font-size: 1.4rem;
   text-align: center;
+  color: var(--charcoal) !important;
 }
 
 .active,
-p .list-group-item-text:hover,
-p .list-group-item-text:focus,
-p .list-group-item-text:active {
+.list-group-item-text:hover,
+.list-group-item-text:active {
   color: var(--vintage) !important;
-  background-color: var(--grey) !important;
+  background-color: var(--ebony) !important;
 }
 
 .carousel-img {
@@ -386,14 +386,19 @@ p .list-group-item-text:active {
 
 /* For Footer  */
 
+footer {
+  margin-top: 30px;
+}
+
 .footerP {
+  font-size: 1.5rem;
   font-style: italic;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
 .footerCopyright {
-  font-size: 1rem;
+  font-size: 1.5rem;
   margin-top: 0px;
   font-style: italic;
 }
