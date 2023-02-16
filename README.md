@@ -18,7 +18,7 @@ This project is the collective efforts of:
 ### Methodology: Wire Framing & Pseudo Code
 * Wire framing for the Wayfaring app
 
-![Wayfaring App Wire Framing](assets/images/)
+![Wayfaring App Wire Framing](assets/images/wireframe_wayfaring-min.png)
 
 
 
